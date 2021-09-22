@@ -11,6 +11,7 @@ const IconButton = ({
   size = 28,
   rippleColor = colors.PRIMARY,
   color = colors.BLACK,
+  onPress,
 }) => {
   return (
     <View
@@ -30,6 +31,7 @@ const IconButton = ({
           justifyContent: 'center',
           alignItems: 'center',
         }}
+        onPress={onPress}
         android_ripple={{color: rippleColor}}>
         <Icon name={name} size={size} color={color} />
       </Pressable>
@@ -42,6 +44,7 @@ IconButton.propTypes = {
   size: PropTypes.number,
   color: PropTypes.string,
   rippleColor: PropTypes.string,
+  onPress: PropTypes.func.isRequired,
 };
 
 export default IconButton;

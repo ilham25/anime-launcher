@@ -1,12 +1,24 @@
+import React from 'react';
+
 import Layout from '@components/layout';
 import Header from '@components/layout/header';
-import React from 'react';
-import {View, Text} from 'react-native';
 
 const HomePage = () => {
   return (
     <Layout>
-      <Header />
+      <Header
+        title="List anime kamu"
+        left={{
+          onPress: () => {
+            console.log('oawke');
+          },
+        }}
+        right={{
+          onPress: () => {
+            console.log('kekw');
+          },
+        }}
+      />
     </Layout>
   );
 };
