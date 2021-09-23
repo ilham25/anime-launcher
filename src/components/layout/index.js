@@ -10,7 +10,11 @@ const Layout = ({fullscreen, scrollable, children}) => {
     </SafeAreaView>
   ) : (
     <>
-      <StatusBar barStyle="dark-content" backgroundColor="white" />
+      <StatusBar
+        barStyle="light-content"
+        translucent
+        backgroundColor="transparent"
+      />
       {scrollable ? <ScrollView>{children}</ScrollView> : children}
     </>
   );
