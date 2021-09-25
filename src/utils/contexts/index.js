@@ -1,14 +1,24 @@
 import React, {createContext, useContext, useReducer} from 'react';
+import {setStorage} from '..';
 
 const initialState = {
-  directoryList: [],
+  animeList: [],
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'UPDATE_LIST':
+    case 'INITIAL':
       return {
         ...state,
+        animeList: action.animeList,
+      };
+      break;
+
+    case 'UPDATE_LIST':
+      setStorage(JSON.stringify([...state.animeList, action.anime]));
+      return {
+        ...state,
+        animeList: [...state.animeList, action.anime],
       };
 
     default:

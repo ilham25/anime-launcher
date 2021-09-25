@@ -14,13 +14,8 @@ const Header = ({
   title,
   titleStyle,
   titleAlign = 'center',
-  left = {visible: true, onPress: () => {}, name: 'menu', color: colors.BLACK},
-  right = {
-    visible: true,
-    onPress: () => {},
-    name: 'search',
-    color: colors.BLACK,
-  },
+  left,
+  right,
   fullscreen,
   style,
 }) => {
@@ -39,18 +34,14 @@ const Header = ({
         alignItems: 'center',
         paddingHorizontal: 15,
       }}>
-      {left.visible ? (
+      {left ? (
         <IconButton
           name={left.name || 'menu'}
           color={left.color || colors.BLACK}
           onPress={left.onPress}
         />
       ) : (
-        <IconButton
-          name={left.name || 'menu'}
-          color={left.color || colors.BLACK}
-          onPress={left.onPress}
-        />
+        <View style={{height: 28, width: 28}}></View>
       )}
       <View
         style={{
@@ -69,18 +60,14 @@ const Header = ({
           {title}
         </Text>
       </View>
-      {right.visible ? (
+      {right ? (
         <IconButton
           name={right.name || 'search'}
           color={left.color || colors.BLACK}
           onPress={right.onPress}
         />
       ) : (
-        <IconButton
-          name={right.name || 'search'}
-          color={left.color || colors.BLACK}
-          onPress={right.onPress}
-        />
+        <View style={{height: 28, width: 28}}></View>
       )}
     </View>
   ) : (
@@ -117,13 +104,11 @@ Header.propTypes = {
   titleStyle: PropTypes.object,
   titleAlign: PropTypes.oneOf(['left', 'center', 'right']),
   left: PropTypes.shape({
-    visible: PropTypes.bool,
     name: PropTypes.string,
     onPress: PropTypes.func.isRequired,
     color: PropTypes.string,
   }),
   right: PropTypes.shape({
-    visible: PropTypes.bool,
     name: PropTypes.string,
     onPress: PropTypes.func.isRequired,
     color: PropTypes.string,
