@@ -25,7 +25,7 @@ const AnimeDetailpage = ({route, navigation}) => {
         }}>
         <Image
           source={{
-            uri: 'https://static.zerochan.net/Kamisato.Ayaka.full.3359066.jpg',
+            uri: `file://${image}`,
           }}
           style={{
             height: Screen.height * 0.4,
@@ -42,6 +42,7 @@ const AnimeDetailpage = ({route, navigation}) => {
           }}>
           <Header
             fullscreen
+            title=""
             style={{
               width: Screen.width,
             }}
@@ -63,7 +64,7 @@ const AnimeDetailpage = ({route, navigation}) => {
           position: 'relative',
         }}>
         <Description title={title} episodes={episodes} directory={directory} />
-        <EpisodeList title={title} />
+        <EpisodeList title={title} directory={directory} />
         <CustomFab
           style={{top: -37.5, right: Screen.width * 0.1}}
           icon="play-arrow"

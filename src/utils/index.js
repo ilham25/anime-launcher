@@ -18,7 +18,7 @@ export const getDirectory = async () => {
 
       const response = await DocumentPicker.pickDirectory();
 
-      const externalDir = encodeURI(RNFS.ExternalStorageDirectoryPath + '/');
+      const externalDir = RNFS.ExternalStorageDirectoryPath + '/';
       const selectedDir = response.uri.split(getDirNameRegex)[1];
 
       const fullDirName = decodeURIComponent(externalDir + selectedDir);
@@ -46,7 +46,7 @@ export const getFile = async () => {
         type: DocumentPicker.types.images,
       });
 
-      const externalDir = encodeURI(RNFS.ExternalStorageDirectoryPath + '/');
+      const externalDir = RNFS.ExternalStorageDirectoryPath + '/';
       const selectedFile = response.uri.split(getDirNameRegex)[1];
 
       const fullFileName = decodeURIComponent(externalDir + selectedFile);
@@ -82,7 +82,8 @@ export const setStorage = async item => {
 
 export const getStorage = async () => {
   try {
-    await AsyncStorage.getItem('animeList');
+    const token = await AsyncStorage.getItem('animeList');
+    return token;
   } catch (error) {
     console.error('animeList', error);
   }

@@ -50,7 +50,7 @@ const InputForm = ({navigation}) => {
   const handleDirectory = async field => {
     try {
       const selectedDir = await getDirectory();
-      formik.setFieldValue(field, encodeURI(selectedDir));
+      formik.setFieldValue(field, selectedDir);
     } catch (error) {
       console.log('selectDir err', error);
     }
@@ -59,7 +59,7 @@ const InputForm = ({navigation}) => {
   const handleFile = async field => {
     try {
       const selectedFile = await getFile();
-      formik.setFieldValue(field, encodeURI(selectedFile));
+      formik.setFieldValue(field, selectedFile);
     } catch (error) {
       console.log('selectedFile err', error);
     }

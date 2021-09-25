@@ -39,7 +39,7 @@ const AnimeCard = ({title, episodes, directory, image, onPress = () => {}}) => {
               fontSize: 12,
               color: colors.PRIMARY,
             }}>
-            {episodes} Episode
+            {episodes || '-'} Episode
           </Text>
           <Text
             style={{
@@ -47,19 +47,14 @@ const AnimeCard = ({title, episodes, directory, image, onPress = () => {}}) => {
               color: colors.GRAY,
               fontSize: 10,
               marginTop: 10,
-            }}>
+            }}
+            numberOfLines={2}>
             {directory}
           </Text>
         </View>
         <View style={{width: 140}}>
           <Image
-            source={
-              image
-                ? image
-                : {
-                    uri: 'https://asset.kompas.com/crops/TxoQggK3Fls2sXUGBgDm0OUR1nI=/189x0:662x315/750x500/data/photo/2020/12/23/5fe2d8471b64a.png',
-                  }
-            }
+            source={{uri: `file://${image}`}}
             style={{width: 140, height: 135, resizeMode: 'cover'}}
           />
         </View>
@@ -70,7 +65,7 @@ const AnimeCard = ({title, episodes, directory, image, onPress = () => {}}) => {
 
 AnimeCard.propTypes = {
   title: PropTypes.string.isRequired,
-  episodes: PropTypes.any.isRequired,
+  episodes: PropTypes.any,
   directory: PropTypes.string.isRequired,
   image: PropTypes.any,
   onPress: PropTypes.func.isRequired,

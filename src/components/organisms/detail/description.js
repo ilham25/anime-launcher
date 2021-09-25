@@ -11,7 +11,8 @@ const Description = ({title, episodes, directory}) => {
           fontFamily: fonts.medium500,
           fontSize: 24,
           color: colors.BLACK,
-        }}>
+        }}
+        numberOfLines={2}>
         {title}
       </Text>
       <Text
@@ -20,14 +21,15 @@ const Description = ({title, episodes, directory}) => {
           color: colors.PRIMARY,
           fontSize: 14,
         }}>
-        {episodes} Episodes
+        {episodes || '-'} Episodes
       </Text>
       <Text
         style={{
           fontFamily: fonts.regular400,
           fontSize: 12,
           color: colors.GRAY,
-        }}>
+        }}
+        numberOfLines={2}>
         {directory}
       </Text>
     </View>

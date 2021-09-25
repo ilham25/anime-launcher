@@ -4,59 +4,17 @@ import {View, Text, FlatList} from 'react-native';
 import PropTypes from 'prop-types';
 
 import AnimeCard from './animeCard';
-
-const DATA = [
-  {
-    id: 1,
-    title: 'Tonikaku Kawaii',
-    episodes: 12,
-    directory: '/storage/emulated/0/tonikawa',
-    image: '',
-  },
-  {
-    id: 2,
-    title: 'Horimiya',
-    episodes: 13,
-    directory: '/storage/emulated/0/horimiya',
-    image: '',
-  },
-  {
-    id: 3,
-    title: 'Tonikaku Kawaii',
-    episodes: 12,
-    directory: '/storage/emulated/0/tonikawa',
-    image: '',
-  },
-  {
-    id: 4,
-    title: 'Tonikaku Kawaii',
-    episodes: 12,
-    directory: '/storage/emulated/0/tonikawa',
-    image: '',
-  },
-  {
-    id: 5,
-    title: 'Tonikaku Kawaii',
-    episodes: 12,
-    directory: '/storage/emulated/0/tonikawa',
-    image: '',
-  },
-  {
-    id: 6,
-    title: 'Tonikaku Kawaii',
-    episodes: 12,
-    directory: '/storage/emulated/0/tonikawa',
-    image: '',
-  },
-];
+import {useDefaultContext} from '@utils/contexts';
 
 const AnimeList = ({navigation}) => {
+  const [state, _] = useDefaultContext();
+
   const renderItem = ({item}) => (
     <AnimeCard
       title={item.title}
-      episodes={item.episodes}
+      // episodes={item.episodes}
       directory={item.directory}
-      //   image={item.image}
+      image={item.image}
       onPress={() => {
         navigation.navigate('App', {
           screen: 'AnimeDetailPage',
@@ -73,7 +31,7 @@ const AnimeList = ({navigation}) => {
 
   return (
     <FlatList
-      data={DATA}
+      data={state.animeList}
       renderItem={renderItem}
       keyExtractor={data => data.id}
       showsVerticalScrollIndicator={false}
