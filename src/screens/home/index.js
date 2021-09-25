@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 
-import {Text} from 'react-native';
+import {Text, Dimensions} from 'react-native';
 
 import Layout from '@components/layout';
 import Header from '@components/layout/header';
@@ -15,6 +15,9 @@ import fonts from '@utils/fonts';
 import colors from '@utils/themes/colors';
 import AnimeList from '@components/organisms/home/animeList';
 import {useDefaultContext} from '@utils/contexts';
+import CustomFab from '@components/atoms/customFab';
+
+const Screen = Dimensions.get('screen');
 
 const HomePage = ({navigation}) => {
   const [state, _] = useDefaultContext();
@@ -67,6 +70,19 @@ const HomePage = ({navigation}) => {
         ) : (
           <HomeContainer>
             <AnimeList navigation={navigation} />
+            <CustomFab
+              style={{
+                bottom: 20,
+                right: Screen.width * 0.5,
+                transform: [{translateX: Screen.width * 0.1}],
+              }}
+              icon="add"
+              onPress={() => {
+                navigation.navigate('App', {
+                  screen: 'FormPage',
+                });
+              }}
+            />
           </HomeContainer>
         )}
       </WallpaperContainer>

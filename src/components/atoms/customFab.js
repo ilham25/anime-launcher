@@ -5,7 +5,7 @@ import Icons from 'react-native-vector-icons/MaterialIcons';
 
 import colors from '@utils/themes/colors';
 
-const CustomFab = ({style, icon = 'add'}) => {
+const CustomFab = ({style, icon = 'add', onPress = () => {}}) => {
   return (
     <View
       style={{
@@ -26,7 +26,8 @@ const CustomFab = ({style, icon = 'add'}) => {
           justifyContent: 'center',
           alignItems: 'center',
         }}
-        android_ripple={{color: colors.GRAY_LIGHT}}>
+        android_ripple={{color: colors.GRAY_LIGHT}}
+        onPress={onPress}>
         <Icons name={icon} size={36} color="white" />
       </Pressable>
     </View>

@@ -45,7 +45,7 @@ export const getFile = async () => {
       const response = await DocumentPicker.pickSingle({
         type: DocumentPicker.types.images,
       });
-
+      console.log(response);
       const externalDir = RNFS.ExternalStorageDirectoryPath + '/';
       const selectedFile = response.uri.split(getDirNameRegex)[1];
 
@@ -69,6 +69,7 @@ export const getEpisodes = async dir => {
       vid.isFile() &&
       VIDEO_EXTENSIONS.includes(vid.name.match(videoFilesRegex)[1]),
   );
+  console.log(filterVideos);
   return filterVideos.map(vid => vid.path);
 };
 

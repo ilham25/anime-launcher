@@ -1,3 +1,8 @@
+import React, {useEffect, useState} from 'react';
+
+import {View, Dimensions, Image, Text} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
+
 import CustomFab from '@components/atoms/customFab';
 import Layout from '@components/layout';
 import Header from '@components/layout/header';
@@ -5,15 +10,28 @@ import Description from '@components/organisms/detail/description';
 import EpisodeList from '@components/organisms/detail/episodeList';
 import fonts from '@utils/fonts';
 import colors from '@utils/themes/colors';
-import React from 'react';
-import {View, Dimensions, Image, Text} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {getEpisodes} from '@utils/';
 
 const Screen = Dimensions.get('screen');
 
 const AnimeDetailpage = ({route, navigation}) => {
   const {title, episodes, directory, image} = route.params;
-  console.log({title, episodes, directory, image});
+
+  const [dataSource, setDataSource] = useState([]);
+
+  const handleEpisodesList = async () => {
+    try {
+      const eps = await getEpisodes(directory);
+      setDataSource(eps.map((item, idx) => ({id: idx, file: item})));
+    } catch (error) {
+      console.log('handleEpisodesList err', error);
+    }
+  };
+
+  useEffect(() => {
+    handleEpisodesList();
+  }, []);
+
   return (
     <Layout fullscreen>
       <View
@@ -64,10 +82,13 @@ const AnimeDetailpage = ({route, navigation}) => {
           position: 'relative',
         }}>
         <Description title={title} episodes={episodes} directory={directory} />
-        <EpisodeList title={title} directory={directory} />
+        <EpisodeList title={title} dataSource={dataSource} />
         <CustomFab
           style={{top: -37.5, right: Screen.width * 0.1}}
           icon="play-arrow"
+          onPress={() => {
+            console.log('awoe', dataSource[0].file);
+          }}
         />
       </View>
     </Layout>

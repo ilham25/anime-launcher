@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {View, Dimensions, ToastAndroid} from 'react-native';
+import {View, Dimensions, ToastAndroid, Text} from 'react-native';
 import {useFormik} from 'formik';
 import * as yup from 'yup';
 import {StackActions} from '@react-navigation/native';
@@ -86,13 +86,16 @@ const InputForm = ({navigation}) => {
           }}
         />
 
+        {!!formik.values.directory && (
+          <SubLabel>{formik.values.directory}</SubLabel>
+        )}
+
         {formik.errors.directory && formik.touched.directory && (
           <TextError>{formik.errors.directory}</TextError>
         )}
       </FormControl>
       <FormControl>
         <FormLabel>Pilih wallpaper</FormLabel>
-        <SubLabel>*gambar digunakan untuk preview anime</SubLabel>
         <Button
           onPress={() => {
             handleFile('image');
@@ -107,6 +110,7 @@ const InputForm = ({navigation}) => {
                 }
           }
         />
+        {!!formik.values.image && <SubLabel>{formik.values.image}</SubLabel>}
       </FormControl>
       <FormControl>
         <Button

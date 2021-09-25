@@ -1,12 +1,22 @@
 import React, {useState, useEffect} from 'react';
 
+import {
+  View,
+  Text,
+  FlatList,
+  Pressable,
+  Linking,
+  ToastAndroid,
+} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+
 import {isEven} from '@utils/';
 import fonts from '@utils/fonts';
 import colors from '@utils/themes/colors';
-import {View, Text, FlatList, Pressable} from 'react-native';
-import {getEpisodes} from '@utils/';
 
 const EpisodeItem = ({data, title}) => {
+  const navigation = useNavigation();
+
   return (
     <Pressable
       style={{
@@ -14,9 +24,7 @@ const EpisodeItem = ({data, title}) => {
         backgroundColor: isEven(data?.id) ? 'white' : colors.GRAY_LIGHT,
       }}
       android_ripple={{color: colors.PRIMARY}}
-      onPress={() => {
-        console.log(data?.file);
-      }}>
+      onPress={() => {}}>
       <Text
         style={{
           fontFamily: fonts.regular400,
@@ -29,22 +37,7 @@ const EpisodeItem = ({data, title}) => {
   );
 };
 
-const EpisodeList = ({title, directory}) => {
-  const [dataSource, setDataSource] = useState([]);
-
-  const handleEpisodesList = async () => {
-    try {
-      const eps = await getEpisodes(directory);
-      setDataSource(eps.map((item, idx) => ({id: idx, file: item})));
-    } catch (error) {
-      console.log('handleEpisodesList err', error);
-    }
-  };
-
-  useEffect(() => {
-    handleEpisodesList();
-  }, []);
-
+const EpisodeList = ({title, dataSource}) => {
   const renderItem = ({item}) => <EpisodeItem data={item} title={title} />;
 
   return (
