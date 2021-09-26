@@ -1,8 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 
 import {View, Dimensions, Image, Text} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import SendIntentAndroid from 'react-native-send-intent';
+import BottomSheet from 'react-native-raw-bottom-sheet';
 
 import CustomFab from '@components/atoms/customFab';
 import Layout from '@components/layout';
@@ -13,18 +14,26 @@ import colors from '@utils/themes/colors';
 import {getEpisodes} from '@utils/';
 import images from '@assets/images';
 import {useDefaultContext} from '@utils/contexts';
+import MenuComponent from '@components/organisms/home/menu';
 
 const Screen = Dimensions.get('screen');
 
 const AnimeDetailpage = ({route, navigation}) => {
   const {animeId} = route.params || {};
-  const [state, _] = useDefaultContext();
+
+  const bottomSheet = useRef();
+
+  const [dataSource, setDataSource] = useState([]);
+  const [selectedAnime, setSelectedAnime] = useState({
+    id: '',
+    title: '',
+  });
+
+  const [state, dispatch] = useDefaultContext();
 
   const anime = state.animeList.find(anime => anime.id === animeId);
 
   const {title, episodes, directory, image, history} = anime || {};
-
-  const [dataSource, setDataSource] = useState([]);
 
   const handleEpisodesList = async () => {
     try {
@@ -36,7 +45,24 @@ const AnimeDetailpage = ({route, navigation}) => {
   };
 
   const handleOpenFile = () => {
-    SendIntentAndroid.openAppWithData(null, dataSource[0].file, 'video/*');
+    const episodeToPlayIndex =
+      history?.length > 0 ? history[history.length - 1] - 1 : 0;
+
+    SendIntentAndroid.openAppWithData(
+      null,
+      dataSource[episodeToPlayIndex].file,
+      'video/*',
+    );
+    if (history?.length === 0) {
+      dispatch({
+        type: 'animeList',
+        payload: {
+          type: 'CREATE_ANIME_HISTORY',
+          animeId: animeId,
+          selectedEpisode: episodeToPlayIndex + 1,
+        },
+      });
+    }
   };
 
   useEffect(() => {
@@ -86,6 +112,14 @@ const AnimeDetailpage = ({route, navigation}) => {
                 navigation.goBack();
               },
             }}
+            right={{
+              name: 'more-vert',
+              color: 'white',
+              onPress: () => {
+                setSelectedAnime(anime);
+                bottomSheet.current.open();
+              },
+            }}
           />
         </SafeAreaView>
       </View>
@@ -106,6 +140,20 @@ const AnimeDetailpage = ({route, navigation}) => {
           }}
         />
       </View>
+      <BottomSheet
+        ref={bottomSheet}
+        height={250}
+        customStyles={{
+          container: {
+            padding: 20,
+          },
+        }}>
+        <MenuComponent
+          selectedAnimeProps={{get: selectedAnime, set: setSelectedAnime}}
+          bottomSheetRef={bottomSheet}
+          showClearHistory
+        />
+      </BottomSheet>
     </Layout>
   );
 };

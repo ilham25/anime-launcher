@@ -91,20 +91,26 @@ const Header = ({
         paddingHorizontal: 15,
         backgroundColor: 'transparent',
         width: Screen.width,
+        justifyContent: 'space-between',
         ...style,
       }}>
-      {left.visible ? (
+      {left ? (
         <IconButton
           name={left.name || 'menu'}
           color={left.color || colors.BLACK}
           onPress={left.onPress}
         />
       ) : (
+        <View style={{height: 28, width: 28}}></View>
+      )}
+      {right ? (
         <IconButton
-          name={left.name || 'menu'}
-          color={left.color || colors.BLACK}
-          onPress={left.onPress}
+          name={right.name || 'menu'}
+          color={right.color || colors.BLACK}
+          onPress={right.onPress}
         />
+      ) : (
+        <View style={{height: 28, width: 28}}></View>
       )}
     </View>
   );

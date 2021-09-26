@@ -52,21 +52,48 @@ const animeListReducer = (state, action) => {
       );
 
       if (!selectedAnime.history.includes(+action.payload.selectedEpisode)) {
+        console.log('blm pernah');
         selectedAnime.history.push(action.payload.selectedEpisode);
+      } else {
+        console.log('pernah');
 
-        const editedAnimeList = state.animeList.map(anime =>
-          anime.id !== action.payload.animeId ? anime : selectedAnime,
+        const episodeIndex = selectedAnime.history.indexOf(
+          +action.payload.selectedEpisode,
         );
-
-        response = {
-          ...state,
-          animeList: editedAnimeList,
-        };
-
-        setStorage(response);
-
-        return response;
+        selectedAnime.history.splice(episodeIndex, 1);
+        selectedAnime.history.push(+action.payload.selectedEpisode);
       }
+
+      const editedHistoryAnimeList = state.animeList.map(anime =>
+        anime.id !== action.payload.animeId ? anime : selectedAnime,
+      );
+
+      response = {
+        ...state,
+        animeList: editedHistoryAnimeList,
+      };
+
+      setStorage(response);
+
+      return response;
+
+    case 'CLEAR_ANIME_HISTORY':
+      const selectedClearHistory = state.animeList.find(
+        anime => anime.id === action.payload.animeId,
+      );
+
+      selectedClearHistory.history = [];
+
+      const clearHistoryAnimeList = state.animeList.map(anime =>
+        anime.id !== action.payload.animeId ? anime : selectedClearHistory,
+      );
+
+      response = {
+        ...state,
+        animeList: clearHistoryAnimeList,
+      };
+
+      setStorage(response);
 
       return response;
 

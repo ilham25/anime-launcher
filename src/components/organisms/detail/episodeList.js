@@ -12,12 +12,7 @@ const EpisodeItem = ({data, title, anime}) => {
   const [_, dispatch] = useDefaultContext();
 
   const handleOpenFile = async () => {
-    try {
-      SendIntentAndroid.openAppWithData(null, data?.file, 'video/*');
-      handleInsertHistory();
-    } catch (error) {
-      console.log('handleOpenFile err', error);
-    }
+    SendIntentAndroid.openAppWithData(null, data?.file, 'video/*');
   };
 
   const handleInsertHistory = () => {
@@ -43,6 +38,7 @@ const EpisodeItem = ({data, title, anime}) => {
       android_ripple={{color: colors.PRIMARY}}
       onPress={() => {
         handleOpenFile();
+        handleInsertHistory();
       }}>
       <Text
         style={{

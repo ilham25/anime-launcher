@@ -9,7 +9,11 @@ import fonts from '@utils/fonts';
 import colors from '@utils/themes/colors';
 import {useDefaultContext} from '@utils/contexts';
 
-const MenuComponent = ({selectedAnimeProps, bottomSheetRef}) => {
+const MenuComponent = ({
+  selectedAnimeProps,
+  bottomSheetRef,
+  showClearHistory,
+}) => {
   const [_, dispatch] = useDefaultContext();
   const navigation = useNavigation();
 
@@ -32,6 +36,19 @@ const MenuComponent = ({selectedAnimeProps, bottomSheetRef}) => {
         selected,
       },
     });
+    bottomSheetRef.current.close();
+  };
+
+  const handleClearHistory = () => {
+    dispatch({
+      type: 'animeList',
+      payload: {
+        type: 'CLEAR_ANIME_HISTORY',
+        animeId: selected.id,
+      },
+    });
+    ToastAndroid.show('Berhasil hapus history', ToastAndroid.SHORT);
+
     bottomSheetRef.current.close();
   };
 
@@ -64,6 +81,15 @@ const MenuComponent = ({selectedAnimeProps, bottomSheetRef}) => {
             handleEdit();
           }}
         />
+        {showClearHistory && (
+          <Button
+            label="Bersihkan History"
+            onPress={() => {
+              handleClearHistory();
+            }}
+            backgroundColor={colors.PRIMARY}
+          />
+        )}
       </View>
     </View>
   );
