@@ -4,6 +4,7 @@ import {StackActions} from '@react-navigation/native';
 
 import Layout from '@components/layout';
 import Header from '@components/layout/header';
+import SettingsForm from '@components/organisms/settings/settingsForm';
 
 const SettingsPage = ({navigation}) => {
   return (
@@ -17,6 +18,7 @@ const SettingsPage = ({navigation}) => {
           },
         }}
       />
+      <SettingsForm navigation={navigation} />
     </Layout>
   );
 };

@@ -1,47 +1,52 @@
 import {setStorage} from '@utils/';
 
 const animeListReducer = (state, action) => {
+  let response = state;
   switch (action.payload.type) {
     case 'INITIAL':
-      return {
+      response = {
         ...state,
         animeList: action.payload.animeList,
       };
+      return response;
 
     case 'CREATE_ANIME':
-      console.log(state);
-      setStorage(JSON.stringify([...state.animeList, action.payload.anime]));
-
-      return {
+      response = {
         ...state,
         animeList: [...state.animeList, action.payload.anime],
       };
+      setStorage(response);
+
+      return response;
+
     case 'EDIT_ANIME':
       const editedAnimeList = state.animeList.map(anime =>
         anime.id !== action.payload.anime.id ? anime : action.payload.anime,
       );
-      setStorage(JSON.stringify(editedAnimeList));
 
-      return {
+      response = {
         ...state,
         animeList: editedAnimeList,
       };
+      setStorage(response);
+
+      return response;
 
     case 'DELETE_ANIME':
       const selectedAnimeIndex = state.animeList.findIndex(
         anime => anime.id === action.payload.anime.id,
       );
-
       state.animeList.splice(selectedAnimeIndex, 1);
-      setStorage(JSON.stringify(state.animeList));
 
-      return {
+      response = {
         ...state,
         animeList: state.animeList,
       };
+      setStorage(response);
+
+      return response;
     default:
       return state;
-      break;
   }
 };
 

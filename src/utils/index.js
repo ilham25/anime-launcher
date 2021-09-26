@@ -73,18 +73,18 @@ export const getEpisodes = async dir => {
 
 export const setStorage = async item => {
   try {
-    await AsyncStorage.setItem('animeList', item);
+    await AsyncStorage.setItem('animeLauncherData', JSON.stringify(item));
   } catch (error) {
-    console.error('animeList', error);
+    console.error('setStorage', error);
   }
 };
 
 export const getStorage = async () => {
   try {
-    const token = await AsyncStorage.getItem('animeList');
-    return token;
+    const storage = await AsyncStorage.getItem('animeLauncherData');
+    return JSON.parse(storage);
   } catch (error) {
-    console.error('animeList', error);
+    console.error('getStorage', error);
   }
 };
 

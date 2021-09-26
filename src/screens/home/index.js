@@ -37,7 +37,7 @@ const HomePage = ({navigation}) => {
         }}
       />
       <WallpaperContainer>
-        <Wallpaper source={images.wpExample} />
+        <Wallpaper source={state.wallpaper} opacity={state.wallpaperOpacity} />
         {!state?.animeList?.length > 0 ? (
           <HomeContainer
             style={{

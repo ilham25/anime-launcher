@@ -7,6 +7,7 @@ import images from '@assets/images';
 import colors from '@utils/themes/colors';
 import {getStorage} from '@utils/';
 import {useDefaultContext} from '@utils/contexts';
+import {setStorage} from '@utils/';
 
 const Window = Dimensions.get('window');
 
@@ -15,14 +16,41 @@ const SplashScreen = () => {
 
   const handleStorage = async () => {
     try {
-      const getCurrentStorage = await getStorage();
-      dispatch({
-        type: 'animeList',
-        payload: {
-          type: 'INITIAL',
-          animeList: !getCurrentStorage ? [] : JSON.parse(getCurrentStorage),
-        },
-      });
+      const getStorage = await getStorage();
+
+      if (getStorage) {
+        if (getStorage.animeList) {
+          dispatch({
+            type: 'animeList',
+            payload: {
+              type: 'INITIAL',
+              animeList:
+                getStorage.animeList.length === 0 ? [] : getStorage.animeList,
+            },
+          });
+        }
+
+        if (getStorage.wallpaper) {
+          dispatch({
+            type: 'wallpaper',
+            payload: {
+              type: 'INITIAL',
+              wallpaper: !getStorage.wallpaper ? '' : getStorage.wallpaper,
+            },
+          });
+        }
+        if (getStorage.wallpaperOpacity) {
+          dispatch({
+            type: 'wallpaperOpacity',
+            payload: {
+              type: 'INITIAL',
+              wallpaperOpacity: !getStorage.wallpaperOpacity
+                ? 0.1
+                : getStorage.wallpaperOpacity,
+            },
+          });
+        }
+      }
     } catch (error) {
       console.log('handleStorage err', error);
     }
