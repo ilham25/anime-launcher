@@ -5,7 +5,14 @@ import Icons from 'react-native-vector-icons/MaterialIcons';
 
 import colors from '@utils/themes/colors';
 
-const CustomFab = ({style, icon = 'add', onPress = () => {}}) => {
+const CustomFab = ({
+  style,
+  icon = 'add',
+  onPress = () => {},
+  size = 36,
+  small,
+  backgroundColor,
+}) => {
   return (
     <View
       style={{
@@ -19,16 +26,16 @@ const CustomFab = ({style, icon = 'add', onPress = () => {}}) => {
       }}>
       <Pressable
         style={{
-          height: 75,
-          width: 75,
-          backgroundColor: colors.PRIMARY,
+          height: (!small ? 40 : 5) + size,
+          width: (!small ? 40 : 5) + size,
+          backgroundColor: !backgroundColor ? colors.PRIMARY : backgroundColor,
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
         }}
         android_ripple={{color: colors.GRAY_LIGHT}}
         onPress={onPress}>
-        <Icons name={icon} size={36} color="white" />
+        <Icons name={icon} size={size} color="white" />
       </Pressable>
     </View>
   );

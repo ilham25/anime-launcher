@@ -35,6 +35,7 @@ const HomePage = ({navigation}) => {
           onPress: () => {
             console.log('kekw');
           },
+          name: 'settings',
         }}
       />
       <WallpaperContainer>

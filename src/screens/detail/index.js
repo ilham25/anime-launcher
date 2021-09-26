@@ -11,6 +11,7 @@ import Description from '@components/organisms/detail/description';
 import EpisodeList from '@components/organisms/detail/episodeList';
 import colors from '@utils/themes/colors';
 import {getEpisodes} from '@utils/';
+import images from '@assets/images';
 
 const Screen = Dimensions.get('screen');
 
@@ -46,9 +47,13 @@ const AnimeDetailpage = ({route, navigation}) => {
           backgroundColor: 'black',
         }}>
         <Image
-          source={{
-            uri: `file://${image}`,
-          }}
+          source={
+            image
+              ? {
+                  uri: `file://${image}`,
+                }
+              : images.thumbnail
+          }
           style={{
             height: Screen.height * 0.4,
             width: Screen.width,

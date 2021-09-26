@@ -1,13 +1,21 @@
-import React from 'react';
+import React, {useRef, useState} from 'react';
 
-import {View, Text, FlatList} from 'react-native';
+import {FlatList, View} from 'react-native';
 import PropTypes from 'prop-types';
+import BottomSheet from 'react-native-raw-bottom-sheet';
 
 import AnimeCard from './animeCard';
 import {useDefaultContext} from '@utils/contexts';
+import MenuComponent from './menu';
 
 const AnimeList = ({navigation}) => {
   const [state, _] = useDefaultContext();
+
+  const bottomSheet = useRef();
+  const [selectedAnime, setSelectedAnime] = useState({
+    id: '',
+    title: '',
+  });
 
   const renderItem = ({item}) => (
     <AnimeCard
@@ -26,16 +34,35 @@ const AnimeList = ({navigation}) => {
           },
         });
       }}
+      menuOnPress={() => {
+        setSelectedAnime(item);
+        bottomSheet.current.open();
+      }}
     />
   );
 
   return (
-    <FlatList
-      data={state.animeList}
-      renderItem={renderItem}
-      keyExtractor={data => data.id}
-      showsVerticalScrollIndicator={false}
-    />
+    <View>
+      <FlatList
+        data={state.animeList}
+        renderItem={renderItem}
+        keyExtractor={data => data.id}
+        showsVerticalScrollIndicator={false}
+      />
+      <BottomSheet
+        ref={bottomSheet}
+        height={180}
+        customStyles={{
+          container: {
+            padding: 20,
+          },
+        }}>
+        <MenuComponent
+          selectedAnimeProps={{get: selectedAnime, set: setSelectedAnime}}
+          bottomSheetRef={bottomSheet}
+        />
+      </BottomSheet>
+    </View>
   );
 };
 

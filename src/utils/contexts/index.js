@@ -12,7 +12,6 @@ const reducer = (state, action) => {
         ...state,
         animeList: action.animeList,
       };
-      break;
 
     case 'UPDATE_LIST':
       setStorage(JSON.stringify([...state.animeList, action.anime]));
@@ -21,6 +20,18 @@ const reducer = (state, action) => {
         animeList: [...state.animeList, action.anime],
       };
 
+    case 'DELETE_ANIME':
+      const selectedAnimeIndex = state.animeList.findIndex(
+        anime => anime.id === action.anime.id,
+      );
+
+      state.animeList.splice(selectedAnimeIndex, 1);
+
+      setStorage(JSON.stringify(state.animeList));
+      return {
+        ...state,
+        animeList: state.animeList,
+      };
     default:
       return state;
   }

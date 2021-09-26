@@ -5,8 +5,17 @@ import PropTypes from 'prop-types';
 
 import fonts from '@utils/fonts';
 import colors from '@utils/themes/colors';
+import images from '@assets/images';
+import CustomFab from '@components/atoms/customFab';
 
-const AnimeCard = ({title, episodes, directory, image, onPress = () => {}}) => {
+const AnimeCard = ({
+  title,
+  episodes,
+  directory,
+  image,
+  onPress = () => {},
+  menuOnPress = () => {},
+}) => {
   return (
     <View
       style={{
@@ -14,6 +23,7 @@ const AnimeCard = ({title, episodes, directory, image, onPress = () => {}}) => {
         borderRadius: 15,
         overflow: 'hidden',
         marginBottom: 15,
+        position: 'relative',
       }}>
       <Pressable
         style={{
@@ -54,11 +64,19 @@ const AnimeCard = ({title, episodes, directory, image, onPress = () => {}}) => {
         </View>
         <View style={{width: 140}}>
           <Image
-            source={{uri: `file://${image}`}}
+            source={image ? {uri: `file://${image}`} : images.thumbnail}
             style={{width: 140, height: 135, resizeMode: 'cover'}}
           />
         </View>
       </Pressable>
+      <CustomFab
+        style={{top: 5, right: 5}}
+        icon="more-vert"
+        onPress={menuOnPress}
+        size={20}
+        small
+        backgroundColor={colors.RED}
+      />
     </View>
   );
 };

@@ -16,7 +16,6 @@ const SplashScreen = () => {
   const handleStorage = async () => {
     try {
       const getCurrentStorage = await getStorage();
-      console.log(getCurrentStorage, 'awei');
       dispatch({
         type: 'INITIAL',
         animeList: !getCurrentStorage ? [] : JSON.parse(getCurrentStorage),
