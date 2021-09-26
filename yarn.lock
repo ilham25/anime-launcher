@@ -5483,11 +5483,6 @@ react-native-document-picker@^6.0.4:
   dependencies:
     invariant "^2.2.4"
 
-react-native-file-viewer@^2.1.4:
-  version "2.1.4"
-  resolved "https://registry.yarnpkg.com/react-native-file-viewer/-/react-native-file-viewer-2.1.4.tgz#987b2902f0f0ac87b42f3ac3d3037c8ae98f17a6"
-  integrity sha512-G3ko9lmqxT+lWhsDNy2K3Jes6xSMsUvlYwuwnRCNk2wC6hgYMeoeaiwDt8R3CdON781hB6Ej1eu3ir1QATtHXg==
-
 react-native-fs@^2.18.0:
   version "2.18.0"
   resolved "https://registry.yarnpkg.com/react-native-fs/-/react-native-fs-2.18.0.tgz#987b99cc90518ef26663a8d60e62104694b41c21"
@@ -5532,6 +5527,11 @@ react-native-screens@^3.7.2:
   integrity sha512-TUmCE2ZIr6SFCUqsUqLsYQZ7EWo+tKyxSVFj3G5BCkGFOl3MwXEPgT/ihNCnL1aUAgr6TEMWVHg+awLkkQgYyQ==
   dependencies:
     warn-once "^0.1.0"
+
+react-native-send-intent@^1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/react-native-send-intent/-/react-native-send-intent-1.2.3.tgz#76ad08bb1d0c0e175735ab2bb77890774c785d8a"
+  integrity sha512-77Pv0ZEMsEQT/0N0fbvfQtO0Pqc1sgY1MyCHqPmGNZ1upICoHnxBNZ77QvDraWloTlw22coEZikzARcCZmmcVA==
 
 react-native-vector-icons@^8.1.0:
   version "8.1.0"

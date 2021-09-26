@@ -2,13 +2,13 @@ import React, {useEffect, useState} from 'react';
 
 import {View, Dimensions, Image, Text} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import SendIntentAndroid from 'react-native-send-intent';
 
 import CustomFab from '@components/atoms/customFab';
 import Layout from '@components/layout';
 import Header from '@components/layout/header';
 import Description from '@components/organisms/detail/description';
 import EpisodeList from '@components/organisms/detail/episodeList';
-import fonts from '@utils/fonts';
 import colors from '@utils/themes/colors';
 import {getEpisodes} from '@utils/';
 
@@ -26,6 +26,10 @@ const AnimeDetailpage = ({route, navigation}) => {
     } catch (error) {
       console.log('handleEpisodesList err', error);
     }
+  };
+
+  const handleOpenFile = () => {
+    SendIntentAndroid.openAppWithData(null, dataSource[0].file, 'video/*');
   };
 
   useEffect(() => {
@@ -87,7 +91,7 @@ const AnimeDetailpage = ({route, navigation}) => {
           style={{top: -37.5, right: Screen.width * 0.1}}
           icon="play-arrow"
           onPress={() => {
-            console.log('awoe', dataSource[0].file);
+            handleOpenFile();
           }}
         />
       </View>
