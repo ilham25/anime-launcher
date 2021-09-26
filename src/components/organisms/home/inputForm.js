@@ -17,6 +17,7 @@ import {getDirectory} from '@utils/';
 import {getFile} from '@utils/';
 import {useDefaultContext} from '@utils/contexts';
 import {createRandomString} from '@utils/';
+import {getEpisodes} from '@utils/';
 
 const InputForm = ({navigation, type, selected}) => {
   const [_, dispatch] = useDefaultContext();
@@ -33,22 +34,7 @@ const InputForm = ({navigation, type, selected}) => {
       directory: yup.string().required('Direktori tidak boleh kosong'),
     }),
     onSubmit: values => {
-      const id = isEdit ? selected?.id : createRandomString();
-      dispatch({
-        type: 'animeList',
-        payload: {
-          type: isEdit ? 'EDIT_ANIME' : 'CREATE_ANIME',
-          anime: {
-            id,
-            ...values,
-          },
-        },
-      });
-      ToastAndroid.show(
-        `Anime berhasil ${isEdit ? 'diubah' : 'ditambahkan'}`,
-        ToastAndroid.SHORT,
-      );
-      navigation.dispatch(StackActions.pop(1));
+      handleSubmit(values);
     },
   });
 
@@ -67,6 +53,33 @@ const InputForm = ({navigation, type, selected}) => {
       formik.setFieldValue(field, selectedFile);
     } catch (error) {
       console.log('selectedFile err', error);
+    }
+  };
+
+  const handleSubmit = async values => {
+    try {
+      const id = isEdit ? selected?.id : createRandomString();
+      const getEpisode = await getEpisodes(values.directory);
+
+      dispatch({
+        type: 'animeList',
+        payload: {
+          type: isEdit ? 'EDIT_ANIME' : 'CREATE_ANIME',
+          anime: {
+            id,
+            episodes: getEpisode.length,
+            ...values,
+          },
+        },
+      });
+
+      ToastAndroid.show(
+        `Anime berhasil ${isEdit ? 'diubah' : 'ditambahkan'}`,
+        ToastAndroid.SHORT,
+      );
+      navigation.dispatch(StackActions.pop(1));
+    } catch (error) {
+      console.log('handleSubmit err', error);
     }
   };
 

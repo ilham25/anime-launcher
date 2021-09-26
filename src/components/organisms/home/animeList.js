@@ -20,7 +20,7 @@ const AnimeList = ({navigation}) => {
   const renderItem = ({item}) => (
     <AnimeCard
       title={item.title}
-      // episodes={item.episodes}
+      episodes={item.episodes}
       directory={item.directory}
       image={item.image}
       onPress={() => {

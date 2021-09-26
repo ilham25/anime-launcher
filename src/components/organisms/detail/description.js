@@ -21,7 +21,7 @@ const Description = ({title, episodes, directory}) => {
           color: colors.PRIMARY,
           fontSize: 14,
         }}>
-        {episodes || '-'} Episodes
+        {episodes || '-'} {+episodes > 1 ? 'Episodes' : 'Episode'}
       </Text>
       <Text
         style={{

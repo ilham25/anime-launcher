@@ -21,7 +21,7 @@ const Screen = Dimensions.get('screen');
 
 const HomePage = ({navigation}) => {
   const [state, _] = useDefaultContext();
-
+  console.log(state.animeList);
   return (
     <Layout>
       <Header
