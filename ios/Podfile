@@ -12,6 +12,12 @@ target 'animeLauncher' do
     :hermes_enabled => false
   )
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
+  pod 'RNFS', :path => '../node_modules/react-native-fs'
+
+  pod 'react-native-video', :path => '../node_modules/react-native-video'
+
   target 'animeLauncherTests' do
     inherit! :complete
     # Pods for testing
