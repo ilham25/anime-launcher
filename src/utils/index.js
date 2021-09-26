@@ -5,6 +5,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {VIDEO_EXTENSIONS} from './constants/fileExtensions';
 
+const externalStorageDirectoryUri =
+  'content://com.android.externalstorage.documents/tree/primary:';
+const externalStorageFileUri =
+  'content://com.android.externalstorage.documents/document/primary:';
+const externalDir = RNFS.ExternalStorageDirectoryPath + '/';
+
 export const isEven = num => !Boolean(num % 2);
 
 export const getDirectory = async () => {
@@ -14,22 +20,19 @@ export const getDirectory = async () => {
     );
 
     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-      const getDirNameRegex = /%3A/g;
-
       const response = await DocumentPicker.pickDirectory();
-
-      const externalDir = RNFS.ExternalStorageDirectoryPath + '/';
-      const selectedDir = response.uri.split(getDirNameRegex)[1];
+      const selectedDir = decodeURIComponent(response.uri).split(
+        externalStorageDirectoryUri,
+      )[1];
 
       const fullDirName = decodeURIComponent(externalDir + selectedDir);
 
       return fullDirName;
     } else {
-      ToastAndroid.show('Access Denied!');
+      ToastAndroid.show('Access Denied!', ToastAndroid.SHORT);
     }
   } catch (error) {
-    console.log('err', error);
-    ToastAndroid.show('Error');
+    console.log('getDirectory err', error);
   }
 };
 
@@ -40,35 +43,37 @@ export const getFile = async () => {
     );
 
     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-      const getDirNameRegex = /%3A/g;
-
       const response = await DocumentPicker.pickSingle({
         type: DocumentPicker.types.images,
       });
-      const externalDir = RNFS.ExternalStorageDirectoryPath + '/';
-      const selectedFile = response.uri.split(getDirNameRegex)[1];
+      const selectedFile = decodeURIComponent(response.uri).split(
+        externalStorageFileUri,
+      )[1];
 
       const fullFileName = decodeURIComponent(externalDir + selectedFile);
 
       return fullFileName;
     } else {
-      ToastAndroid.show('Access Denied!');
+      ToastAndroid.show('Access Denied!', ToastAndroid.SHORT);
     }
   } catch (error) {
-    console.log('err', error);
-    ToastAndroid.show('Error');
+    console.log('getFile err', error);
   }
 };
 
 export const getEpisodes = async dir => {
-  const videoFilesRegex = /\.([^.]*?)(?=\?|#|$)/;
-  const readDir = await RNFS.readDir(dir);
-  const filterVideos = readDir.filter(
-    vid =>
-      vid.isFile() &&
-      VIDEO_EXTENSIONS.includes(vid.name.match(videoFilesRegex)[1]),
-  );
-  return filterVideos.map(vid => vid.path);
+  try {
+    const videoFilesRegex = /\.([^.]*?)(?=\?|#|$)/;
+    const readDir = await RNFS.readDir(dir);
+    const filterVideos = readDir.filter(
+      vid =>
+        vid.isFile() &&
+        VIDEO_EXTENSIONS.includes(vid.name.match(videoFilesRegex)[1]),
+    );
+    return filterVideos.map(vid => vid.path);
+  } catch (error) {
+    console.log('getEpisodes err', error);
+  }
 };
 
 export const setStorage = async item => {

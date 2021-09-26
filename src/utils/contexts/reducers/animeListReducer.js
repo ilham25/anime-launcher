@@ -52,11 +52,8 @@ const animeListReducer = (state, action) => {
       );
 
       if (!selectedAnime.history.includes(+action.payload.selectedEpisode)) {
-        console.log('blm pernah');
         selectedAnime.history.push(action.payload.selectedEpisode);
       } else {
-        console.log('pernah');
-
         const episodeIndex = selectedAnime.history.indexOf(
           +action.payload.selectedEpisode,
         );

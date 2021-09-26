@@ -68,7 +68,7 @@ const InputForm = ({navigation, type, selected}) => {
           anime: {
             id,
             episodes: getEpisode.length,
-            history: [],
+            history: isEdit ? selected.history : [],
             ...values,
           },
         },
