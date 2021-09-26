@@ -8,7 +8,11 @@ const Layout = ({fullscreen, scrollable, children}) => {
   return !fullscreen ? (
     <SafeAreaView>
       <StatusBar barStyle="dark-content" backgroundColor="white" />
-      {scrollable ? <ScrollView>{children}</ScrollView> : children}
+      {scrollable ? (
+        <ScrollView keyboardShouldPersistTaps="always">{children}</ScrollView>
+      ) : (
+        children
+      )}
     </SafeAreaView>
   ) : (
     <>

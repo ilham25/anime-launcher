@@ -2,6 +2,7 @@ import {PermissionsAndroid, ToastAndroid} from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
 import RNFS from 'react-native-fs';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import sortArray from 'sort-array';
 
 import {VIDEO_EXTENSIONS} from './constants/fileExtensions';
 
@@ -70,7 +71,10 @@ export const getEpisodes = async dir => {
         vid.isFile() &&
         VIDEO_EXTENSIONS.includes(vid.name.match(videoFilesRegex)[1]),
     );
-    return filterVideos.map(vid => vid.path);
+
+    const videosPath = filterVideos.map(vid => vid.path);
+
+    return sortArray(videosPath, {order: 'asc'});
   } catch (error) {
     console.log('getEpisodes err', error);
   }

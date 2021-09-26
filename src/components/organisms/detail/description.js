@@ -24,7 +24,7 @@ const Description = ({title, episodes, history}) => {
           color: colors.PRIMARY,
           fontSize: 14,
         }}>
-        {episodes || '-'} {+episodes > 1 ? 'Episodes' : 'Episode'}
+        {episodes || '-'} Episode
       </Text>
       <Text
         style={{
@@ -33,7 +33,7 @@ const Description = ({title, episodes, history}) => {
           fontSize: 12,
           marginBottom: 10,
         }}>
-        Last watched episode :{' '}
+        Episode terakhir kali dilihat :{' '}
         {history.length > 0 ? history[history.length - 1] : '-'}
       </Text>
     </View>
