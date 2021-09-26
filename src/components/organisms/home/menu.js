@@ -2,6 +2,7 @@ import React from 'react';
 
 import {View, Text, ToastAndroid} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import PropTypes from 'prop-types';
 
 import Button from '@components/atoms/button';
 
@@ -93,6 +94,15 @@ const MenuComponent = ({
       </View>
     </View>
   );
+};
+
+MenuComponent.propTypes = {
+  selectedAnimeProps: PropTypes.shape({
+    get: PropTypes.object.isRequired,
+    set: PropTypes.func,
+  }).isRequired,
+  bottomSheetRef: PropTypes.object.isRequired,
+  showClearHistory: PropTypes.bool,
 };
 
 export default MenuComponent;

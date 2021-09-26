@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 
 import {View, Text} from 'react-native';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
+import PropTypes from 'prop-types';
 
 import colors from '@utils/themes/colors';
 import fonts from '@utils/fonts';
@@ -48,6 +49,13 @@ const OpacitySlider = ({wallpaperOpacityProps}) => {
       />
     </View>
   );
+};
+
+OpacitySlider.propTypes = {
+  wallpaperOpacityProps: PropTypes.shape({
+    get: PropTypes.number.isRequired,
+    set: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default OpacitySlider;

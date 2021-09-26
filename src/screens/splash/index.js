@@ -4,10 +4,10 @@ import {View, Image, StatusBar, Dimensions} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 import images from '@assets/images';
+
 import colors from '@utils/themes/colors';
 import {getStorage} from '@utils/';
 import {useDefaultContext} from '@utils/contexts';
-import {setStorage} from '@utils/';
 
 const Window = Dimensions.get('window');
 

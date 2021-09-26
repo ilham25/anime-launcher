@@ -1,19 +1,20 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState} from 'react';
 
-import {Text, View} from 'react-native';
-import MultiSlider from '@ptomasroos/react-native-multi-slider';
+import {View} from 'react-native';
+import PropTypes from 'prop-types';
+import {StackActions} from '@react-navigation/native';
 
 import Button from '@components/atoms/button';
 import FormControl from '@components/atoms/formControl';
 import FormLabel from '@components/atoms/formLabel';
 import ImagePreview from '@components/atoms/imagePreview';
+import OpacitySlider from '@components/molecules/settings/opacitySlider';
+
+import images from '@assets/images';
+
 import {getFile} from '@utils/';
 import {useDefaultContext} from '@utils/contexts';
 import colors from '@utils/themes/colors';
-import fonts from '@utils/fonts';
-import OpacitySlider from '@components/molecules/settings/opacitySlider';
-import {StackActions} from '@react-navigation/native';
-import images from '@assets/images';
 
 const SettingsForm = ({navigation}) => {
   const [state, dispatch] = useDefaultContext();
@@ -92,6 +93,10 @@ const SettingsForm = ({navigation}) => {
       </FormControl>
     </View>
   );
+};
+
+SettingsForm.propTypes = {
+  navigation: PropTypes.shape({dispatch: PropTypes.func.isRequired}).isRequired,
 };
 
 export default SettingsForm;

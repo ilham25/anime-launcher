@@ -1,6 +1,7 @@
 import React from 'react';
 
-import {View, Text, Pressable} from 'react-native';
+import {View, Pressable} from 'react-native';
+import PropTypes from 'prop-types';
 import Icons from 'react-native-vector-icons/MaterialIcons';
 
 import colors from '@utils/themes/colors';
@@ -39,6 +40,15 @@ const CustomFab = ({
       </Pressable>
     </View>
   );
+};
+
+CustomFab.propTypes = {
+  style: PropTypes.object,
+  icon: PropTypes.string,
+  onPress: PropTypes.func.isRequired,
+  size: PropTypes.number,
+  small: PropTypes.bool,
+  backgroundColor: PropTypes.string,
 };
 
 export default CustomFab;

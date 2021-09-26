@@ -2,6 +2,7 @@ import React from 'react';
 
 import {Text} from 'react-native';
 import PropTypes from 'prop-types';
+
 import colors from '@utils/themes/colors';
 
 const TextError = ({children}) => {

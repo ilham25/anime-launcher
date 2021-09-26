@@ -2,6 +2,7 @@ import React from 'react';
 
 import {Dimensions, Image} from 'react-native';
 import PropTypes from 'prop-types';
+
 import images from '@assets/images';
 
 const Window = Dimensions.get('window');
@@ -22,6 +23,7 @@ const Wallpaper = ({source, opacity = 0.1}) => {
 
 Wallpaper.propTypes = {
   source: PropTypes.any,
+  opacity: PropTypes.number,
 };
 
 export default Wallpaper;

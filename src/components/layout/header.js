@@ -5,9 +5,10 @@ import PropTypes from 'prop-types';
 
 import IconButton from '@components/atoms/iconButton';
 
+import images from '@assets/images';
+
 import fonts from '@utils/fonts';
 import colors from '@utils/themes/colors';
-import images from '@assets/images';
 
 const Screen = Dimensions.get('screen');
 
@@ -132,6 +133,7 @@ Header.propTypes = {
   }),
   fullscreen: PropTypes.bool,
   style: PropTypes.object,
+  brand: PropTypes.bool,
 };
 
 export default Header;

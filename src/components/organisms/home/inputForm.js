@@ -1,9 +1,10 @@
 import React from 'react';
 
-import {View, Dimensions, ToastAndroid, Text} from 'react-native';
+import {View, ToastAndroid} from 'react-native';
 import {useFormik} from 'formik';
 import * as yup from 'yup';
 import {StackActions} from '@react-navigation/native';
+import PropTypes from 'prop-types';
 
 import FormControl from '@components/atoms/formControl';
 import FormLabel from '@components/atoms/formLabel';
@@ -12,6 +13,7 @@ import TextError from '@components/atoms/textError';
 import Button from '@components/atoms/button';
 import ImagePreview from '@components/atoms/imagePreview';
 import SubLabel from '@components/atoms/subLabel';
+
 import colors from '@utils/themes/colors';
 import {getDirectory} from '@utils/';
 import {getFile} from '@utils/';
@@ -142,6 +144,12 @@ const InputForm = ({navigation, type, selected}) => {
       </FormControl>
     </View>
   );
+};
+
+InputForm.propTypes = {
+  navigation: PropTypes.shape({dispatch: PropTypes.func.isRequired}).isRequired,
+  type: PropTypes.string,
+  selected: PropTypes.object,
 };
 
 export default InputForm;

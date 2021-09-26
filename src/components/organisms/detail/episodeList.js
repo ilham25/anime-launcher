@@ -2,13 +2,14 @@ import React from 'react';
 
 import {Text, FlatList, Pressable, View} from 'react-native';
 import SendIntentAndroid from 'react-native-send-intent';
+import PropTypes from 'prop-types';
 
 import {isEven} from '@utils/';
 import fonts from '@utils/fonts';
 import colors from '@utils/themes/colors';
 import {useDefaultContext} from '@utils/contexts';
 
-const EpisodeItem = ({data, title, anime}) => {
+const EpisodeItem = ({data, anime}) => {
   const [_, dispatch] = useDefaultContext();
 
   const handleOpenFile = async () => {
@@ -47,7 +48,7 @@ const EpisodeItem = ({data, title, anime}) => {
           color: colors.PRIMARY,
           maxWidth: 300,
         }}>
-        {title} - Episode {data?.id + 1}
+        {anime.title} - Episode {data?.id + 1}
       </Text>
       {anime.history.includes(data?.id + 1) && (
         <View
@@ -62,10 +63,8 @@ const EpisodeItem = ({data, title, anime}) => {
   );
 };
 
-const EpisodeList = ({title, dataSource, anime}) => {
-  const renderItem = ({item}) => (
-    <EpisodeItem data={item} title={title} anime={anime} />
-  );
+const EpisodeList = ({dataSource, anime}) => {
+  const renderItem = ({item}) => <EpisodeItem data={item} anime={anime} />;
 
   return (
     <FlatList
@@ -76,6 +75,16 @@ const EpisodeList = ({title, dataSource, anime}) => {
       contentContainerStyle={{paddingTop: 20}}
     />
   );
+};
+
+EpisodeList.propTypes = {
+  dataSource: PropTypes.array.isRequired,
+  anime: PropTypes.object.isRequired,
+};
+
+EpisodeItem.propTypes = {
+  data: PropTypes.object.isRequired,
+  anime: PropTypes.object.isRequired,
 };
 
 export default EpisodeList;

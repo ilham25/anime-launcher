@@ -3,10 +3,12 @@ import React from 'react';
 import {View, Text, Pressable, Image} from 'react-native';
 import PropTypes from 'prop-types';
 
+import CustomFab from '@components/atoms/customFab';
+
+import images from '@assets/images';
+
 import fonts from '@utils/fonts';
 import colors from '@utils/themes/colors';
-import images from '@assets/images';
-import CustomFab from '@components/atoms/customFab';
 
 const AnimeCard = ({
   title,
@@ -87,6 +89,7 @@ AnimeCard.propTypes = {
   directory: PropTypes.string.isRequired,
   image: PropTypes.any,
   onPress: PropTypes.func.isRequired,
+  menuOnPress: PropTypes.func.isRequired,
 };
 
 export default AnimeCard;

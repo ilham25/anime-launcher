@@ -1,7 +1,10 @@
+import React from 'react';
+
+import {View, Text} from 'react-native';
+import PropTypes from 'prop-types';
+
 import fonts from '@utils/fonts';
 import colors from '@utils/themes/colors';
-import React from 'react';
-import {View, Text} from 'react-native';
 
 const Description = ({title, episodes, history}) => {
   return (
@@ -35,6 +38,12 @@ const Description = ({title, episodes, history}) => {
       </Text>
     </View>
   );
+};
+
+Description.propTypes = {
+  title: PropTypes.string.isRequired,
+  episodes: PropTypes.any.isRequired,
+  history: PropTypes.array.isRequired,
 };
 
 export default Description;

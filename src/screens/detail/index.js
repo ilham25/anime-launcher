@@ -1,6 +1,6 @@
 import React, {useEffect, useState, useRef} from 'react';
 
-import {View, Dimensions, Image, Text} from 'react-native';
+import {View, Dimensions, Image} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import SendIntentAndroid from 'react-native-send-intent';
 import BottomSheet from 'react-native-raw-bottom-sheet';
@@ -10,11 +10,13 @@ import Layout from '@components/layout';
 import Header from '@components/layout/header';
 import Description from '@components/organisms/detail/description';
 import EpisodeList from '@components/organisms/detail/episodeList';
+import MenuComponent from '@components/organisms/home/menu';
+
+import images from '@assets/images';
+
 import colors from '@utils/themes/colors';
 import {getEpisodes} from '@utils/';
-import images from '@assets/images';
 import {useDefaultContext} from '@utils/contexts';
-import MenuComponent from '@components/organisms/home/menu';
 
 const Screen = Dimensions.get('screen');
 

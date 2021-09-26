@@ -1,6 +1,8 @@
 import React from 'react';
-import {View, Text, StatusBar, ScrollView} from 'react-native';
+
+import {StatusBar, ScrollView} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import PropTypes from 'prop-types';
 
 const Layout = ({fullscreen, scrollable, children}) => {
   return !fullscreen ? (
@@ -18,6 +20,12 @@ const Layout = ({fullscreen, scrollable, children}) => {
       {scrollable ? <ScrollView>{children}</ScrollView> : children}
     </>
   );
+};
+
+Layout.propTypes = {
+  fullscreen: PropTypes.bool,
+  scrollable: PropTypes.bool,
+  children: PropTypes.node.isRequired,
 };
 
 export default Layout;

@@ -1,5 +1,7 @@
 import React from 'react';
-import {View, Text, Dimensions} from 'react-native';
+
+import {View, Dimensions} from 'react-native';
+import PropTypes from 'prop-types';
 
 const Window = Dimensions.get('window');
 
@@ -18,6 +20,11 @@ const HomeContainer = ({children, style}) => {
       {children}
     </View>
   );
+};
+
+HomeContainer.propTypes = {
+  children: PropTypes.node.isRequired,
+  style: PropTypes.object,
 };
 
 export default HomeContainer;

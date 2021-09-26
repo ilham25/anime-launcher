@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {View, Text, Pressable} from 'react-native';
+import PropTypes from 'prop-types';
 
 import fonts from '@utils/fonts';
 import colors from '@utils/themes/colors';
@@ -43,6 +44,14 @@ const ButtonComponent = ({
       </Pressable>
     </View>
   );
+};
+
+ButtonComponent.propTypes = {
+  onPress: PropTypes.func.isRequired,
+  label: PropTypes.string,
+  backgroundColor: PropTypes.string,
+  style: PropTypes.object,
+  disabled: PropTypes.bool,
 };
 
 export default ButtonComponent;

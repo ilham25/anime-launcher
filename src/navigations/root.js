@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+
 import SplashScreen from '@screens/splash';
 import AppNav from './app';
 

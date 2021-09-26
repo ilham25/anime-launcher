@@ -1,9 +1,10 @@
+import React from 'react';
+
+import {View, Text, Image} from 'react-native';
+import PropTypes from 'prop-types';
+
 import fonts from '@utils/fonts';
 import colors from '@utils/themes/colors';
-import React from 'react';
-import {View, Text, Dimensions, Image} from 'react-native';
-
-const Screen = Dimensions.get('screen');
 
 const ImagePreview = ({source, opacity = 1}) => {
   return (
@@ -36,6 +37,11 @@ const ImagePreview = ({source, opacity = 1}) => {
       </View>
     </View>
   );
+};
+
+ImagePreview.propTypes = {
+  source: PropTypes.any,
+  opacity: PropTypes.number,
 };
 
 export default ImagePreview;

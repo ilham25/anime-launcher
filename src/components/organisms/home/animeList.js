@@ -5,8 +5,9 @@ import PropTypes from 'prop-types';
 import BottomSheet from 'react-native-raw-bottom-sheet';
 
 import AnimeCard from './animeCard';
-import {useDefaultContext} from '@utils/contexts';
 import MenuComponent from './menu';
+
+import {useDefaultContext} from '@utils/contexts';
 
 const AnimeList = ({navigation}) => {
   const [state, _] = useDefaultContext();
