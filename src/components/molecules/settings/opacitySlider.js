@@ -19,7 +19,7 @@ const OpacitySlider = ({wallpaperOpacityProps}) => {
         borderColor: colors.GRAY_LIGHT,
         paddingTop: 20,
       }}>
-      <Text style={{fontFamily: fonts.regular400}}>{opacity}</Text>
+      <Text style={{fontFamily: fonts.regular400}}>{opacity}%</Text>
       <MultiSlider
         values={[opacity]}
         min={0}
@@ -41,8 +41,9 @@ const OpacitySlider = ({wallpaperOpacityProps}) => {
         }}
         sliderLength={300}
         touchDimensions={{
-          height: 100,
-          width: 100,
+          height: 200,
+          width: 200,
+          slipDisplacement: 300,
         }}
       />
     </View>
