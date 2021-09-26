@@ -5,7 +5,7 @@ import {View, Text, Dimensions, Image} from 'react-native';
 
 const Screen = Dimensions.get('screen');
 
-const ImagePreview = ({source}) => {
+const ImagePreview = ({source, opacity = 1}) => {
   return (
     <View style={{marginTop: 10}}>
       <View
@@ -30,7 +30,7 @@ const ImagePreview = ({source}) => {
         ) : (
           <Image
             source={source}
-            style={{width: '100%', height: 180, resizeMode: 'contain'}}
+            style={{width: '100%', height: 180, resizeMode: 'contain', opacity}}
           />
         )}
       </View>

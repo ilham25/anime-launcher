@@ -27,10 +27,7 @@ const AnimeList = ({navigation}) => {
         navigation.navigate('App', {
           screen: 'AnimeDetailPage',
           params: {
-            title: item.title,
-            episodes: item.episodes,
-            directory: item.directory,
-            image: item.image,
+            animeId: item.id,
           },
         });
       }}

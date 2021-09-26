@@ -13,6 +13,7 @@ import colors from '@utils/themes/colors';
 import fonts from '@utils/fonts';
 import OpacitySlider from '@components/molecules/settings/opacitySlider';
 import {StackActions} from '@react-navigation/native';
+import images from '@assets/images';
 
 const SettingsForm = ({navigation}) => {
   const [state, dispatch] = useDefaultContext();
@@ -63,11 +64,12 @@ const SettingsForm = ({navigation}) => {
         <ImagePreview
           source={
             !selectedWallpaper
-              ? null
+              ? images.wpExample
               : {
                   uri: `file://${selectedWallpaper}`,
                 }
           }
+          opacity={wallpaperOpacity}
         />
       </FormControl>
       <FormControl>

@@ -16,37 +16,41 @@ const SplashScreen = () => {
 
   const handleStorage = async () => {
     try {
-      const getStorage = await getStorage();
+      const getStorageData = await getStorage();
 
-      if (getStorage) {
-        if (getStorage.animeList) {
+      if (getStorageData) {
+        if (getStorageData.animeList) {
           dispatch({
             type: 'animeList',
             payload: {
               type: 'INITIAL',
               animeList:
-                getStorage.animeList.length === 0 ? [] : getStorage.animeList,
+                getStorageData.animeList.length === 0
+                  ? []
+                  : getStorageData.animeList,
             },
           });
         }
 
-        if (getStorage.wallpaper) {
+        if (getStorageData.wallpaper) {
           dispatch({
             type: 'wallpaper',
             payload: {
               type: 'INITIAL',
-              wallpaper: !getStorage.wallpaper ? '' : getStorage.wallpaper,
+              wallpaper: !getStorageData.wallpaper
+                ? ''
+                : getStorageData.wallpaper,
             },
           });
         }
-        if (getStorage.wallpaperOpacity) {
+        if (getStorageData.wallpaperOpacity) {
           dispatch({
             type: 'wallpaperOpacity',
             payload: {
               type: 'INITIAL',
-              wallpaperOpacity: !getStorage.wallpaperOpacity
+              wallpaperOpacity: !getStorageData.wallpaperOpacity
                 ? 0.1
-                : getStorage.wallpaperOpacity,
+                : getStorageData.wallpaperOpacity,
             },
           });
         }
@@ -58,8 +62,6 @@ const SplashScreen = () => {
 
   useEffect(() => {
     handleStorage();
-
-    return () => {};
   }, []);
   return (
     <SafeAreaView>

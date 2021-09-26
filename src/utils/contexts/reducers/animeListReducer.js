@@ -45,6 +45,31 @@ const animeListReducer = (state, action) => {
       setStorage(response);
 
       return response;
+
+    case 'CREATE_ANIME_HISTORY':
+      const selectedAnime = state.animeList.find(
+        anime => anime.id === action.payload.animeId,
+      );
+
+      if (!selectedAnime.history.includes(+action.payload.selectedEpisode)) {
+        selectedAnime.history.push(action.payload.selectedEpisode);
+
+        const editedAnimeList = state.animeList.map(anime =>
+          anime.id !== action.payload.animeId ? anime : selectedAnime,
+        );
+
+        response = {
+          ...state,
+          animeList: editedAnimeList,
+        };
+
+        setStorage(response);
+
+        return response;
+      }
+
+      return response;
+
     default:
       return state;
   }

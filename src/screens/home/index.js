@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 
 import {Text, Dimensions} from 'react-native';
 
@@ -8,8 +8,6 @@ import WallpaperContainer from '@components/organisms/home/wallpaperContainer';
 import Wallpaper from '@components/organisms/home/wallpaper';
 import HomeContainer from '@components/organisms/home/homeContainer';
 import Button from '@components/atoms/button';
-
-import images from '@assets/images';
 
 import fonts from '@utils/fonts';
 import colors from '@utils/themes/colors';
@@ -21,7 +19,7 @@ const Screen = Dimensions.get('screen');
 
 const HomePage = ({navigation}) => {
   const [state, _] = useDefaultContext();
-  console.log(state.animeList);
+
   return (
     <Layout>
       <Header
@@ -56,15 +54,15 @@ const HomePage = ({navigation}) => {
               Kayaknya kamu belum masukin anime ke aplikasi ini
             </Text>
             <Button
+              label="Tambah Anime"
               style={{marginTop: 10}}
               onPress={() => {
                 navigation.navigate('App', {
                   screen: 'FormPage',
                 });
               }}
-              backgroundColor={colors.PRIMARY}>
-              Tambah Anime
-            </Button>
+              backgroundColor={colors.PRIMARY}
+            />
           </HomeContainer>
         ) : (
           <HomeContainer>

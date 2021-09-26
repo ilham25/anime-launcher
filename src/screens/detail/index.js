@@ -12,11 +12,17 @@ import EpisodeList from '@components/organisms/detail/episodeList';
 import colors from '@utils/themes/colors';
 import {getEpisodes} from '@utils/';
 import images from '@assets/images';
+import {useDefaultContext} from '@utils/contexts';
 
 const Screen = Dimensions.get('screen');
 
 const AnimeDetailpage = ({route, navigation}) => {
-  const {title, episodes, directory, image} = route.params;
+  const {animeId} = route.params || {};
+  const [state, _] = useDefaultContext();
+
+  const anime = state.animeList.find(anime => anime.id === animeId);
+
+  const {title, episodes, directory, image, history} = anime || {};
 
   const [dataSource, setDataSource] = useState([]);
 
@@ -90,8 +96,8 @@ const AnimeDetailpage = ({route, navigation}) => {
           padding: 20,
           position: 'relative',
         }}>
-        <Description title={title} episodes={episodes} directory={directory} />
-        <EpisodeList title={title} dataSource={dataSource} />
+        <Description title={title} episodes={episodes} history={history} />
+        <EpisodeList title={title} dataSource={dataSource} anime={anime} />
         <CustomFab
           style={{top: -37.5, right: Screen.width * 0.1}}
           icon="play-arrow"
