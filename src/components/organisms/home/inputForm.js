@@ -20,23 +20,24 @@ import {createRandomString} from '@utils/';
 
 const Screen = Dimensions.get('screen');
 
-const InputForm = ({navigation}) => {
+const InputForm = ({navigation, type, selected}) => {
   const [_, dispatch] = useDefaultContext();
+  const isEdit = type === 'edit' || '';
 
   const formik = useFormik({
     initialValues: {
-      title: '',
-      directory: '',
-      image: '',
+      title: isEdit ? selected?.title : '',
+      directory: isEdit ? selected?.directory : '',
+      image: isEdit ? selected?.image : '',
     },
     validationSchema: yup.object({
       title: yup.string().required('Nama anime tidak boleh kosong'),
       directory: yup.string().required('Direktori tidak boleh kosong'),
     }),
     onSubmit: values => {
-      const id = createRandomString();
+      const id = isEdit ? selected?.id : createRandomString();
       dispatch({
-        type: 'UPDATE_LIST',
+        type: isEdit ? 'EDIT_ANIME' : 'CREATE_ANIME',
         anime: {
           id,
           ...values,
@@ -73,6 +74,7 @@ const InputForm = ({navigation}) => {
         <TextInput
           onChangeText={formik.handleChange('title')}
           onBlur={formik.handleBlur('title')}
+          value={formik.values.title}
         />
         {formik.errors.title && formik.touched.title && (
           <TextError>{formik.errors.title}</TextError>

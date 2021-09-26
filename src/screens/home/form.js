@@ -5,7 +5,8 @@ import Layout from '@components/layout';
 import Header from '@components/layout/header';
 import InputForm from '@components/organisms/home/inputForm';
 
-const FormPage = ({navigation}) => {
+const FormPage = ({route, navigation}) => {
+  const {type, selected} = route.params;
   return (
     <Layout scrollable>
       <Header
@@ -17,7 +18,7 @@ const FormPage = ({navigation}) => {
           },
         }}
       />
-      <InputForm navigation={navigation} />
+      <InputForm navigation={navigation} type={type} selected={selected} />
     </Layout>
   );
 };

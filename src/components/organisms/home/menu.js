@@ -29,6 +29,7 @@ const MenuComponent = ({selectedAnimeProps, bottomSheetRef}) => {
         selected,
       },
     });
+    bottomSheetRef.current.close();
   };
 
   return (

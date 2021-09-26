@@ -16,6 +16,7 @@ const ImagePreview = ({source}) => {
           alignItems: 'center',
           justifyContent: 'center',
           height: 180,
+          marginBottom: 5,
         }}>
         {!source ? (
           <Text
