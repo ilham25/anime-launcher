@@ -18,8 +18,6 @@ import {getFile} from '@utils/';
 import {useDefaultContext} from '@utils/contexts';
 import {createRandomString} from '@utils/';
 
-const Screen = Dimensions.get('screen');
-
 const InputForm = ({navigation, type, selected}) => {
   const [_, dispatch] = useDefaultContext();
   const isEdit = type === 'edit' || '';
@@ -37,13 +35,19 @@ const InputForm = ({navigation, type, selected}) => {
     onSubmit: values => {
       const id = isEdit ? selected?.id : createRandomString();
       dispatch({
-        type: isEdit ? 'EDIT_ANIME' : 'CREATE_ANIME',
-        anime: {
-          id,
-          ...values,
+        type: 'animeList',
+        payload: {
+          type: isEdit ? 'EDIT_ANIME' : 'CREATE_ANIME',
+          anime: {
+            id,
+            ...values,
+          },
         },
       });
-      ToastAndroid.show('Anime berhasil ditambahkan', ToastAndroid.SHORT);
+      ToastAndroid.show(
+        `Anime berhasil ${isEdit ? 'diubah' : 'ditambahkan'}`,
+        ToastAndroid.SHORT,
+      );
       navigation.dispatch(StackActions.pop(1));
     },
   });

@@ -1,7 +1,9 @@
+import React from 'react';
+
+import {View, Text, Pressable} from 'react-native';
+
 import fonts from '@utils/fonts';
 import colors from '@utils/themes/colors';
-import React from 'react';
-import {View, Text, Pressable} from 'react-native';
 
 const ButtonComponent = ({
   onPress = () => {},

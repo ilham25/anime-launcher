@@ -17,8 +17,11 @@ const SplashScreen = () => {
     try {
       const getCurrentStorage = await getStorage();
       dispatch({
-        type: 'INITIAL',
-        animeList: !getCurrentStorage ? [] : JSON.parse(getCurrentStorage),
+        type: 'animeList',
+        payload: {
+          type: 'INITIAL',
+          animeList: !getCurrentStorage ? [] : JSON.parse(getCurrentStorage),
+        },
       });
     } catch (error) {
       console.log('handleStorage err', error);
@@ -27,6 +30,8 @@ const SplashScreen = () => {
 
   useEffect(() => {
     handleStorage();
+
+    return () => {};
   }, []);
   return (
     <SafeAreaView>

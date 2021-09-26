@@ -5,6 +5,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import AnimeDetailpage from '@screens/detail';
 import HomePage from '@screens/home';
 import FormPage from '@screens/home/form';
+import SettingsPage from '@screens/settings';
 
 const Stack = createStackNavigator();
 
@@ -24,6 +25,11 @@ const AppNav = () => {
       <Stack.Screen
         name="FormPage"
         component={FormPage}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="SettingsPage"
+        component={SettingsPage}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

@@ -1,48 +1,19 @@
 import React, {createContext, useContext, useReducer} from 'react';
-import {setStorage} from '..';
+
+import animeListReducer from './reducers/animeListReducer';
+import wallpaperReducer from './reducers/wallpaperReducer';
 
 const initialState = {
   animeList: [],
+  wallpaper: '',
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'INITIAL':
-      return {
-        ...state,
-        animeList: action.animeList,
-      };
-
-    case 'CREATE_ANIME':
-      setStorage(JSON.stringify([...state.animeList, action.anime]));
-
-      return {
-        ...state,
-        animeList: [...state.animeList, action.anime],
-      };
-    case 'EDIT_ANIME':
-      const editedAnimeList = state.animeList.map(anime =>
-        anime.id !== action.anime.id ? anime : action.anime,
-      );
-      setStorage(JSON.stringify(editedAnimeList));
-
-      return {
-        ...state,
-        animeList: editedAnimeList,
-      };
-
-    case 'DELETE_ANIME':
-      const selectedAnimeIndex = state.animeList.findIndex(
-        anime => anime.id === action.anime.id,
-      );
-
-      state.animeList.splice(selectedAnimeIndex, 1);
-      setStorage(JSON.stringify(state.animeList));
-
-      return {
-        ...state,
-        animeList: state.animeList,
-      };
+    case 'animeList':
+      return animeListReducer(state, action);
+    case 'wallpaper':
+      return wallpaperReducer(state, action);
     default:
       return state;
   }

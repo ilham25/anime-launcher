@@ -16,7 +16,10 @@ const MenuComponent = ({selectedAnimeProps, bottomSheetRef}) => {
   const {get: selected} = selectedAnimeProps;
 
   const handleDelete = () => {
-    dispatch({type: 'DELETE_ANIME', anime: selected});
+    dispatch({
+      type: 'animeList',
+      payload: {type: 'DELETE_ANIME', anime: selected},
+    });
     ToastAndroid.show('Berhasil hapus anime', ToastAndroid.SHORT);
     bottomSheetRef.current.close();
   };

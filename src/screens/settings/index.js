@@ -1,16 +1,15 @@
 import React from 'react';
+
 import {StackActions} from '@react-navigation/native';
 
 import Layout from '@components/layout';
 import Header from '@components/layout/header';
-import InputForm from '@components/organisms/home/inputForm';
 
-const FormPage = ({route, navigation}) => {
-  const {type, selected} = route.params || {};
+const SettingsPage = ({navigation}) => {
   return (
     <Layout scrollable>
       <Header
-        title="Tambah Anime"
+        title="Pengaturan"
         left={{
           name: 'close',
           onPress: () => {
@@ -18,9 +17,8 @@ const FormPage = ({route, navigation}) => {
           },
         }}
       />
-      <InputForm navigation={navigation} type={type} selected={selected} />
     </Layout>
   );
 };
 
-export default FormPage;
+export default SettingsPage;

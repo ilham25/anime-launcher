@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Text} from 'react-native-paper';
+import {Text} from 'react-native';
 import PropTypes from 'prop-types';
 
 import RequiredSymbol from '@components/atoms/requiredSymbol';

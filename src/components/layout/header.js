@@ -1,12 +1,13 @@
 import React from 'react';
 
-import {View, Text, Dimensions} from 'react-native';
+import {View, Text, Dimensions, Image} from 'react-native';
 import PropTypes from 'prop-types';
 
 import IconButton from '@components/atoms/iconButton';
 
 import fonts from '@utils/fonts';
 import colors from '@utils/themes/colors';
+import images from '@assets/images';
 
 const Screen = Dimensions.get('screen');
 
@@ -18,6 +19,7 @@ const Header = ({
   right,
   fullscreen,
   style,
+  brand,
 }) => {
   const titleAlignEnum = {
     left: 'flex-start',
@@ -34,14 +36,23 @@ const Header = ({
         alignItems: 'center',
         paddingHorizontal: 15,
       }}>
-      {left ? (
-        <IconButton
-          name={left.name || 'menu'}
-          color={left.color || colors.BLACK}
-          onPress={left.onPress}
-        />
-      ) : (
-        <View style={{height: 28, width: 28}}></View>
+      {!brand &&
+        (left ? (
+          <IconButton
+            name={left.name || 'menu'}
+            color={left.color || colors.BLACK}
+            onPress={left.onPress}
+          />
+        ) : (
+          <View style={{height: 28, width: 28}}></View>
+        ))}
+      {brand && (
+        <View>
+          <Image
+            source={images.brand}
+            style={{height: 28, width: 28, resizeMode: 'contain'}}
+          />
+        </View>
       )}
       <View
         style={{
@@ -63,7 +74,7 @@ const Header = ({
       {right ? (
         <IconButton
           name={right.name || 'search'}
-          color={left.color || colors.BLACK}
+          color={right.color || colors.BLACK}
           onPress={right.onPress}
         />
       ) : (

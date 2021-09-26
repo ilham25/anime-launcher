@@ -26,14 +26,12 @@ const HomePage = ({navigation}) => {
     <Layout>
       <Header
         title="List anime kamu"
-        left={{
-          onPress: () => {
-            console.log('oawke');
-          },
-        }}
+        brand
         right={{
           onPress: () => {
-            console.log('kekw');
+            navigation.navigate('App', {
+              screen: 'SettingsPage',
+            });
           },
           name: 'settings',
         }}

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Text} from 'react-native-paper';
+import {Text} from 'react-native';
 
 import colors from '@utils/themes/colors';
 
