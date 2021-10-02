@@ -14,7 +14,7 @@ const EpisodeItem = ({
   episodePreviewProps,
   selectedEpisodeIndexProps,
 }) => {
-  const [{theme}, _] = useDefaultContext();
+  const [{theme, episodePreview: isEpisodePreview}, _] = useDefaultContext();
 
   const {set: setEpisodePreview} = episodePreviewProps;
   const {get: selectedEpisodeIndex, set: setSelectedEpisodeIndex} =
@@ -38,20 +38,37 @@ const EpisodeItem = ({
         }}
         android_ripple={{color: colors[theme ?? 'LIGHT'].PRIMARY}}
         onPress={() => {
-          setEpisodePreview(data?.file);
+          isEpisodePreview && setEpisodePreview(data?.file);
           setSelectedEpisodeIndex(data?.id);
         }}>
-        <Text
+        <View
           style={{
-            fontFamily: fonts.regular400,
-            fontSize: 14,
-            color: isSelected
-              ? colors[theme ?? 'LIGHT'].WHITE
-              : colors[theme ?? 'LIGHT'].PRIMARY,
-            maxWidth: 300,
+            flexDirection: 'row',
           }}>
-          {anime.title} - Episode {data?.id + 1}
-        </Text>
+          <Text
+            style={{
+              fontFamily: fonts.regular400,
+              fontSize: 14,
+              color: isSelected
+                ? colors[theme ?? 'LIGHT'].WHITE
+                : colors[theme ?? 'LIGHT'].PRIMARY,
+              maxWidth: 200,
+            }}
+            numberOfLines={2}>
+            {anime.title}
+          </Text>
+          <Text
+            style={{
+              fontFamily: fonts.regular400,
+              fontSize: 14,
+              color: isSelected
+                ? colors[theme ?? 'LIGHT'].WHITE
+                : colors[theme ?? 'LIGHT'].PRIMARY,
+              marginLeft: 5,
+            }}>
+            - Episode {data?.id + 1}
+          </Text>
+        </View>
 
         {anime.history.includes(data?.id + 1) && (
           <View

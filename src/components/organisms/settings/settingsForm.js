@@ -17,6 +17,8 @@ import {useDefaultContext} from '@utils/contexts';
 import colors from '@utils/themes/colors';
 import fonts from '@utils/fonts';
 import ColorSchemeToggle from '@components/molecules/settings/colorSchemeToggle';
+import SettingsContainer from '@components/atoms/settingsContainer';
+import EpisodePreviewToggle from '@components/molecules/settings/episodePreviewToggle';
 
 const SettingsForm = ({navigation}) => {
   const [state, dispatch] = useDefaultContext();
@@ -64,14 +66,7 @@ const SettingsForm = ({navigation}) => {
         }}>
         Wallpaper
       </Text>
-      <View
-        style={{
-          padding: 10,
-          borderWidth: 1,
-          borderColor: colors[state.theme || 'LIGHT'].GRAY_LIGHT,
-          marginVertical: 10,
-          borderRadius: 4,
-        }}>
+      <SettingsContainer>
         <FormControl>
           <FormLabel>Gambar</FormLabel>
           <Button
@@ -99,7 +94,7 @@ const SettingsForm = ({navigation}) => {
             }}
           />
         </FormControl>
-      </View>
+      </SettingsContainer>
       <Text
         style={{
           fontFamily: fonts.medium500,
@@ -107,16 +102,22 @@ const SettingsForm = ({navigation}) => {
         }}>
         Tema
       </Text>
-      <View
-        style={{
-          padding: 10,
-          borderWidth: 1,
-          borderColor: colors[state.theme || 'LIGHT'].GRAY_LIGHT,
-          marginVertical: 10,
-          borderRadius: 4,
-        }}>
+      <SettingsContainer>
         <ColorSchemeToggle />
-      </View>
+      </SettingsContainer>
+
+      <Text
+        style={{
+          fontFamily: fonts.medium500,
+          color: colors[state.theme || 'LIGHT'].TEXT,
+        }}>
+        Lainnya
+      </Text>
+
+      <SettingsContainer>
+        <EpisodePreviewToggle />
+      </SettingsContainer>
+
       <FormControl>
         <Button
           label="Simpan"

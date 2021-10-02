@@ -44,7 +44,8 @@ const AnimeCard = ({
               fontFamily: fonts.regular400,
               fontSize: 16,
               color: colors[theme ?? 'LIGHT'].BLACK,
-            }}>
+            }}
+            numberOfLines={2}>
             {title}
           </Text>
           <Text

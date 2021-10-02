@@ -6,28 +6,28 @@ import FormLabel from '@components/atoms/formLabel';
 import colors from '@utils/themes/colors';
 import {useDefaultContext} from '@utils/contexts';
 
-const ColorSchemeToggle = () => {
-  const [{theme}, dispatch] = useDefaultContext();
+const EpisodePreviewToggle = () => {
+  const [{theme, episodePreview}, dispatch] = useDefaultContext();
 
-  const [isDark, setIsDark] = useState(theme === 'DARK');
+  const [isPreview, setIsPreview] = useState(episodePreview);
 
   return (
     <View>
-      <FormLabel>Mode Gelap</FormLabel>
+      <FormLabel>Preview Episode</FormLabel>
       <Switch
-        value={isDark}
+        value={isPreview}
         onValueChange={value => {
-          setIsDark(prev => !prev);
+          setIsPreview(prev => !prev);
           dispatch({
-            type: 'theme',
+            type: 'episodePreview',
             payload: {
-              type: 'CHANGE_THEME',
-              theme: value ? 'DARK' : 'LIGHT',
+              type: 'CHANGE_VALUE',
+              episodePreview: value,
             },
           });
         }}
         thumbColor={
-          isDark
+          isPreview
             ? colors[theme ?? 'LIGHT'].PRIMARY
             : colors[theme ?? 'LIGHT'].GRAY
         }
@@ -37,4 +37,4 @@ const ColorSchemeToggle = () => {
   );
 };
 
-export default ColorSchemeToggle;
+export default EpisodePreviewToggle;
