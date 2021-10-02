@@ -54,14 +54,12 @@ const SplashScreen = () => {
             },
           });
         }
-        if (getStorageData.episodePreview) {
+        if (getStorageData.episodePreview !== undefined) {
           dispatch({
             type: 'episodePreview',
             payload: {
               type: 'INITIAL',
-              episodePreview: !getStorageData.episodePreview
-                ? true
-                : getStorageData.episodePreview,
+              episodePreview: getStorageData.episodePreview,
             },
           });
         }

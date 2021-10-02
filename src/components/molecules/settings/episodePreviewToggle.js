@@ -13,7 +13,7 @@ const EpisodePreviewToggle = () => {
 
   return (
     <View>
-      <FormLabel>Preview Episode</FormLabel>
+      <FormLabel>Tampilkan preview episode</FormLabel>
       <Switch
         value={isPreview}
         onValueChange={value => {
