@@ -22,6 +22,10 @@ const Screen = Dimensions.get('screen');
 
 const AnimeDetailpage = ({route, navigation}) => {
   const {animeId} = route.params || {};
+  const [state, dispatch] = useDefaultContext();
+
+  const anime = state.animeList.find(anime => anime.id === animeId);
+  const {title, episodes, directory, image, history} = anime || {};
 
   const bottomSheet = useRef();
 
@@ -30,12 +34,10 @@ const AnimeDetailpage = ({route, navigation}) => {
     id: '',
     title: '',
   });
-
-  const [state, dispatch] = useDefaultContext();
-
-  const anime = state.animeList.find(anime => anime.id === animeId);
-
-  const {title, episodes, directory, image, history} = anime || {};
+  const [episodePreview, setEpisodePreview] = useState(image);
+  const [selectedEpisodeIndex, setSelectedEpisodeIndex] = useState(
+    history?.length > 0 ? history[history?.length - 1] - 1 : 0,
+  );
 
   const handleEpisodesList = async () => {
     try {
@@ -46,25 +48,23 @@ const AnimeDetailpage = ({route, navigation}) => {
     }
   };
 
-  const handleOpenFile = () => {
-    const episodeToPlayIndex =
-      history?.length > 0 ? history[history.length - 1] - 1 : 0;
-
+  const handleOpenFile = async () => {
     SendIntentAndroid.openAppWithData(
       null,
-      dataSource[episodeToPlayIndex].file,
+      dataSource[selectedEpisodeIndex].file,
       'video/*',
     );
-    if (history?.length === 0) {
-      dispatch({
-        type: 'animeList',
-        payload: {
-          type: 'CREATE_ANIME_HISTORY',
-          animeId: animeId,
-          selectedEpisode: episodeToPlayIndex + 1,
-        },
-      });
-    }
+  };
+
+  const handleInsertHistory = () => {
+    dispatch({
+      type: 'animeList',
+      payload: {
+        type: 'CREATE_ANIME_HISTORY',
+        animeId: anime.id,
+        selectedEpisode: selectedEpisodeIndex + 1,
+      },
+    });
   };
 
   useEffect(() => {
@@ -84,7 +84,7 @@ const AnimeDetailpage = ({route, navigation}) => {
           source={
             image
               ? {
-                  uri: `file://${image}`,
+                  uri: `file://${episodePreview}`,
                 }
               : images.thumbnail
           }
@@ -133,18 +133,28 @@ const AnimeDetailpage = ({route, navigation}) => {
           position: 'relative',
         }}>
         <Description title={title} episodes={episodes} history={history} />
-        <EpisodeList title={title} dataSource={dataSource} anime={anime} />
+        <EpisodeList
+          title={title}
+          dataSource={dataSource}
+          anime={anime}
+          episodePreviewProps={{get: episodePreview, set: setEpisodePreview}}
+          selectedEpisodeIndexProps={{
+            get: selectedEpisodeIndex,
+            set: setSelectedEpisodeIndex,
+          }}
+        />
         <CustomFab
           style={{top: -37.5, right: Screen.width * 0.1}}
           icon="play-arrow"
           onPress={() => {
             handleOpenFile();
+            handleInsertHistory();
           }}
         />
       </View>
       <BottomSheet
         ref={bottomSheet}
-        height={250}
+        height={180}
         customStyles={{
           container: {
             padding: 20,

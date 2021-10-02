@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {Text, FlatList, Pressable, View} from 'react-native';
-import SendIntentAndroid from 'react-native-send-intent';
 import PropTypes from 'prop-types';
 
 import {isEven} from '@utils/';
@@ -9,64 +8,79 @@ import fonts from '@utils/fonts';
 import colors from '@utils/themes/colors';
 import {useDefaultContext} from '@utils/contexts';
 
-const EpisodeItem = ({data, anime}) => {
-  const [{theme}, dispatch] = useDefaultContext();
+const EpisodeItem = ({
+  data,
+  anime,
+  episodePreviewProps,
+  selectedEpisodeIndexProps,
+}) => {
+  const [{theme}, _] = useDefaultContext();
 
-  const handleOpenFile = async () => {
-    SendIntentAndroid.openAppWithData(null, data?.file, 'video/*');
-  };
+  const {set: setEpisodePreview} = episodePreviewProps;
+  const {get: selectedEpisodeIndex, set: setSelectedEpisodeIndex} =
+    selectedEpisodeIndexProps;
 
-  const handleInsertHistory = () => {
-    dispatch({
-      type: 'animeList',
-      payload: {
-        type: 'CREATE_ANIME_HISTORY',
-        animeId: anime.id,
-        selectedEpisode: data.id + 1,
-      },
-    });
-  };
+  const isSelected = data?.id === selectedEpisodeIndex;
 
   return (
-    <Pressable
-      style={{
-        padding: 10,
-        backgroundColor: isEven(data?.id)
-          ? colors[theme ?? 'LIGHT'].WHITE
-          : colors[theme ?? 'LIGHT'].GRAY_LIGHT,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-      }}
-      android_ripple={{color: colors[theme ?? 'LIGHT'].PRIMARY}}
-      onPress={() => {
-        handleOpenFile();
-        handleInsertHistory();
-      }}>
-      <Text
+    <View style={{marginBottom: 5, borderRadius: 4, overflow: 'hidden'}}>
+      <Pressable
         style={{
-          fontFamily: fonts.regular400,
-          fontSize: 14,
-          color: colors[theme ?? 'LIGHT'].PRIMARY,
-          maxWidth: 300,
+          padding: 10,
+          backgroundColor: isSelected
+            ? colors[theme ?? 'LIGHT'].PRIMARY
+            : isEven(data?.id)
+            ? colors[theme ?? 'LIGHT'].WHITE
+            : colors[theme ?? 'LIGHT'].GRAY_LIGHT,
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+        android_ripple={{color: colors[theme ?? 'LIGHT'].PRIMARY}}
+        onPress={() => {
+          setEpisodePreview(data?.file);
+          setSelectedEpisodeIndex(data?.id);
         }}>
-        {anime.title} - Episode {data?.id + 1}
-      </Text>
-      {anime.history.includes(data?.id + 1) && (
-        <View
+        <Text
           style={{
-            height: 10,
-            width: 10,
-            backgroundColor: colors[theme ?? 'LIGHT'].RED,
-            borderRadius: 10,
-          }}></View>
-      )}
-    </Pressable>
+            fontFamily: fonts.regular400,
+            fontSize: 14,
+            color: isSelected
+              ? colors[theme ?? 'LIGHT'].WHITE
+              : colors[theme ?? 'LIGHT'].PRIMARY,
+            maxWidth: 300,
+          }}>
+          {anime.title} - Episode {data?.id + 1}
+        </Text>
+
+        {anime.history.includes(data?.id + 1) && (
+          <View
+            style={{
+              height: 10,
+              width: 10,
+              backgroundColor: colors[theme ?? 'LIGHT'].RED,
+              borderRadius: 10,
+            }}></View>
+        )}
+      </Pressable>
+    </View>
   );
 };
 
-const EpisodeList = ({dataSource, anime}) => {
-  const renderItem = ({item}) => <EpisodeItem data={item} anime={anime} />;
+const EpisodeList = ({
+  dataSource,
+  anime,
+  episodePreviewProps,
+  selectedEpisodeIndexProps,
+}) => {
+  const renderItem = ({item}) => (
+    <EpisodeItem
+      data={item}
+      anime={anime}
+      episodePreviewProps={episodePreviewProps}
+      selectedEpisodeIndexProps={selectedEpisodeIndexProps}
+    />
+  );
 
   return (
     <FlatList
@@ -82,11 +96,27 @@ const EpisodeList = ({dataSource, anime}) => {
 EpisodeList.propTypes = {
   dataSource: PropTypes.array.isRequired,
   anime: PropTypes.object.isRequired,
+  episodePreviewProps: PropTypes.shape({
+    get: PropTypes.string,
+    set: PropTypes.func.isRequired,
+  }).isRequired,
+  selectedEpisodeIndexProps: PropTypes.shape({
+    get: PropTypes.number.isRequired,
+    set: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 EpisodeItem.propTypes = {
   data: PropTypes.object.isRequired,
   anime: PropTypes.object.isRequired,
+  episodePreviewProps: PropTypes.shape({
+    get: PropTypes.string,
+    set: PropTypes.func.isRequired,
+  }).isRequired,
+  selectedEpisodeIndexProps: PropTypes.shape({
+    get: PropTypes.number.isRequired,
+    set: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default EpisodeList;

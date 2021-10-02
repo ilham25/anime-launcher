@@ -69,13 +69,15 @@ const MenuComponent = ({
         {selected.title}
       </Text>
       <View>
-        <Button
-          label="Hapus"
-          onPress={() => {
-            handleDelete();
-          }}
-          backgroundColor={colors[theme ?? 'LIGHT'].RED}
-        />
+        {!showClearHistory && (
+          <Button
+            label="Hapus"
+            onPress={() => {
+              handleDelete();
+            }}
+            backgroundColor={colors[theme ?? 'LIGHT'].RED}
+          />
+        )}
         <Button
           label="Ubah"
           onPress={() => {

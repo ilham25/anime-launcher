@@ -37,7 +37,7 @@ const Description = ({title, episodes, history}) => {
           marginBottom: 10,
         }}>
         Episode terakhir kali dilihat :{' '}
-        {history.length > 0 ? history[history.length - 1] : '-'}
+        {history.length > 0 ? history[history?.length - 1] : '-'}
       </Text>
     </View>
   );

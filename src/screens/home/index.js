@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Text, Dimensions, Appearance} from 'react-native';
+import {Text, Dimensions} from 'react-native';
 
 import Layout from '@components/layout';
 import Header from '@components/layout/header';
@@ -8,13 +8,12 @@ import WallpaperContainer from '@components/organisms/home/wallpaperContainer';
 import Wallpaper from '@components/organisms/home/wallpaper';
 import HomeContainer from '@components/organisms/home/homeContainer';
 import Button from '@components/atoms/button';
+import AnimeList from '@components/organisms/home/animeList';
+import CustomFab from '@components/atoms/customFab';
 
 import fonts from '@utils/fonts';
 import colors from '@utils/themes/colors';
-import AnimeList from '@components/organisms/home/animeList';
 import {useDefaultContext} from '@utils/contexts';
-import CustomFab from '@components/atoms/customFab';
-import {useTheme} from '@utils/hooks';
 
 const Screen = Dimensions.get('screen');
 
@@ -52,10 +51,10 @@ const HomePage = ({navigation}) => {
                 textAlign: 'center',
                 width: 351,
               }}>
-              Kayaknya kamu belum masukin anime ke aplikasi ini
+              Sepertinya kamu belum nambahin anime kamu kesini deh
             </Text>
             <Button
-              label="Tambah Anime"
+              label="Yuk tambah!"
               style={{marginTop: 10}}
               onPress={() => {
                 navigation.navigate('App', {
