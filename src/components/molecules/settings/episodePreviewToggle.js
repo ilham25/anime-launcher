@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import {View, Text, Switch} from 'react-native';
+import {View, Switch} from 'react-native';
 
 import FormLabel from '@components/atoms/formLabel';
 import colors from '@utils/themes/colors';
