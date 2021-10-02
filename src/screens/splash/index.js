@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 
-import {View, Image, StatusBar, Dimensions} from 'react-native';
+import {View, Image, StatusBar, Dimensions, Appearance} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 import images from '@assets/images';
@@ -14,10 +14,11 @@ const Window = Dimensions.get('window');
 const SplashScreen = () => {
   const [{theme}, dispatch] = useDefaultContext();
 
+  const colorScheme = Appearance.getColorScheme();
+
   const handleStorage = async () => {
     try {
       const getStorageData = await getStorage();
-
       if (getStorageData) {
         if (getStorageData.animeList) {
           dispatch({
@@ -31,7 +32,6 @@ const SplashScreen = () => {
             },
           });
         }
-
         if (getStorageData.wallpaper) {
           dispatch({
             type: 'wallpaper',
@@ -55,6 +55,15 @@ const SplashScreen = () => {
           });
         }
       }
+      dispatch({
+        type: 'theme',
+        payload: {
+          type: 'INITIAL',
+          theme: !getStorageData?.theme
+            ? colorScheme.toUpperCase()
+            : getStorageData?.theme,
+        },
+      });
     } catch (error) {
       console.log('handleStorage err', error);
     }

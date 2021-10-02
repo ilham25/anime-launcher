@@ -1,6 +1,7 @@
 import React, {createContext, useContext, useReducer} from 'react';
 
 import animeListReducer from './reducers/animeListReducer';
+import themeReducer from './reducers/themeReducer';
 import wallpaperOpacityReducer from './reducers/wallpaperOpacityReducer';
 import wallpaperReducer from './reducers/wallpaperReducer';
 
@@ -19,6 +20,8 @@ const reducer = (state, action) => {
       return wallpaperReducer(state, action);
     case 'wallpaperOpacity':
       return wallpaperOpacityReducer(state, action);
+    case 'theme':
+      return themeReducer(state, action);
     default:
       return state;
   }

@@ -16,6 +16,7 @@ const Description = ({title, episodes, history}) => {
           fontFamily: fonts.medium500,
           fontSize: 24,
           color: colors[theme ?? 'LIGHT'].BLACK,
+          width: 250,
         }}
         numberOfLines={2}>
         {title}

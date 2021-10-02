@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Text, Dimensions} from 'react-native';
+import {Text, Dimensions, Appearance} from 'react-native';
 
 import Layout from '@components/layout';
 import Header from '@components/layout/header';
@@ -14,6 +14,7 @@ import colors from '@utils/themes/colors';
 import AnimeList from '@components/organisms/home/animeList';
 import {useDefaultContext} from '@utils/contexts';
 import CustomFab from '@components/atoms/customFab';
+import {useTheme} from '@utils/hooks';
 
 const Screen = Dimensions.get('screen');
 

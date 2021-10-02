@@ -14,6 +14,7 @@ const OpacitySlider = ({wallpaperOpacityProps}) => {
     wallpaperOpacityProps;
 
   const [opacity, setOpacity] = useState(wallpaperOpacity * 100);
+
   return (
     <View
       style={{
@@ -24,7 +25,7 @@ const OpacitySlider = ({wallpaperOpacityProps}) => {
         borderRadius: 4,
       }}>
       <Text style={{fontFamily: fonts.regular400, color: colors[theme].TEXT}}>
-        {opacity}%
+        {(+opacity).toFixed(0)}%
       </Text>
       <MultiSlider
         values={[opacity]}

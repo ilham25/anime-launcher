@@ -8,6 +8,7 @@ import AnimeCard from './animeCard';
 import MenuComponent from './menu';
 
 import {useDefaultContext} from '@utils/contexts';
+import colors from '@utils/themes/colors';
 
 const AnimeList = ({navigation}) => {
   const [state, _] = useDefaultContext();
@@ -53,6 +54,7 @@ const AnimeList = ({navigation}) => {
         customStyles={{
           container: {
             padding: 20,
+            backgroundColor: colors[state.theme ?? 'LIGHT'].BACKGROUND,
           },
         }}>
         <MenuComponent

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import {View} from 'react-native';
+import {View, Appearance, Text} from 'react-native';
 import PropTypes from 'prop-types';
 import {StackActions} from '@react-navigation/native';
 
@@ -15,6 +15,8 @@ import images from '@assets/images';
 import {getFile} from '@utils/';
 import {useDefaultContext} from '@utils/contexts';
 import colors from '@utils/themes/colors';
+import fonts from '@utils/fonts';
+import ColorSchemeToggle from '@components/molecules/settings/colorSchemeToggle';
 
 const SettingsForm = ({navigation}) => {
   const [state, dispatch] = useDefaultContext();
@@ -55,33 +57,66 @@ const SettingsForm = ({navigation}) => {
 
   return (
     <View style={{padding: 20}}>
-      <FormControl>
-        <FormLabel>Wallpaper</FormLabel>
-        <Button
-          onPress={() => {
-            handleFile();
-          }}
-        />
-        <ImagePreview
-          source={
-            !selectedWallpaper
-              ? images.wpExample
-              : {
-                  uri: `file://${selectedWallpaper}`,
-                }
-          }
-          opacity={wallpaperOpacity}
-        />
-      </FormControl>
-      <FormControl>
-        <FormLabel>Transparansi Wallpaper</FormLabel>
-        <OpacitySlider
-          wallpaperOpacityProps={{
-            get: wallpaperOpacity,
-            set: setWallpaperOpacity,
-          }}
-        />
-      </FormControl>
+      <Text
+        style={{
+          fontFamily: fonts.medium500,
+          color: colors[state.theme || 'LIGHT'].TEXT,
+        }}>
+        Wallpaper
+      </Text>
+      <View
+        style={{
+          padding: 10,
+          borderWidth: 1,
+          borderColor: colors[state.theme || 'LIGHT'].GRAY_LIGHT,
+          marginVertical: 10,
+          borderRadius: 4,
+        }}>
+        <FormControl>
+          <FormLabel>Gambar</FormLabel>
+          <Button
+            onPress={() => {
+              handleFile();
+            }}
+          />
+          <ImagePreview
+            source={
+              !selectedWallpaper
+                ? images.wpExample
+                : {
+                    uri: `file://${selectedWallpaper}`,
+                  }
+            }
+            opacity={wallpaperOpacity}
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Transparansi Wallpaper</FormLabel>
+          <OpacitySlider
+            wallpaperOpacityProps={{
+              get: wallpaperOpacity,
+              set: setWallpaperOpacity,
+            }}
+          />
+        </FormControl>
+      </View>
+      <Text
+        style={{
+          fontFamily: fonts.medium500,
+          color: colors[state.theme || 'LIGHT'].TEXT,
+        }}>
+        Tema
+      </Text>
+      <View
+        style={{
+          padding: 10,
+          borderWidth: 1,
+          borderColor: colors[state.theme || 'LIGHT'].GRAY_LIGHT,
+          marginVertical: 10,
+          borderRadius: 4,
+        }}>
+        <ColorSchemeToggle />
+      </View>
       <FormControl>
         <Button
           label="Simpan"
