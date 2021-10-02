@@ -1,43 +1,55 @@
 # Anime Launcher
 
-## How To Build
+**Anime Launcher** adalah sebuah aplikasi yang dibuat untuk memudahkan penggemar anime untuk membuat daftar anime yang ada pada android mereka agar lebih terorganisir dan mudah diakses tanpa perlu buka file manager.
 
-- Clone this repository
+- Features
 
-  ```shell
-  git clone https://github.com/ilham25/animeLauncher_RN.git
-  ```
+  - Tambah/daftarkan anime
+    ![CREATE](/Other/create.png)
 
-- Install dependencies
+  - Ubah dan hapus anime dari daftar
+    ![DELEDIT](/Other/del-edit.png)
 
-  - NPM
+  - Daftar episode dan history (episode yang sudah ditonton)
+    ![EPSHISTORY](/Other/eps-history.png)
 
-  ```shell
-  npm install
-  ```
+  - Ganti wallpaper aplikasi
+    ![SETWALLPAPER](/Other/set-wp.png)
 
-  - Yarn
+## Instalasi
 
-  ```shell
-  yarn install
-  ```
+Download file ekstensi **.apk** pada tag release yang tersedia, lalu install.
 
-- Start react native development server
+## Build
 
-  ```shell
-  npx react-native start
-  ```
+Clone repository
 
-- Run debug
+```shell
+git clone https://github.com/ilham25/animeLauncher_RN.git
+```
 
-  - Android
+Install dependency
 
-  ```shell
-  npx react-native run-android
-  ```
+```shell
+npm install
+```
 
-  - iOS
+Start react native development server
 
-  ```shell
-  npx react-native run-ios
-  ```
+```shell
+npx react-native start
+```
+
+Run debug
+
+- Android
+
+```shell
+npx react-native run-android
+```
+
+- iOS
+
+```shell
+npx react-native run-ios
+```

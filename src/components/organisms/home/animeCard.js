@@ -51,7 +51,7 @@ const AnimeCard = ({
               fontSize: 12,
               color: colors.PRIMARY,
             }}>
-            {episodes || '-'} {+episodes > 1 ? 'Episodes' : 'Episode'}
+            {episodes || '-'} Episode
           </Text>
           <Text
             style={{

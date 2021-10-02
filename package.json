@@ -26,6 +26,7 @@
     "react-native-screens": "^3.7.2",
     "react-native-send-intent": "^1.2.3",
     "react-native-vector-icons": "^8.1.0",
+    "sort-array": "^4.1.4",
     "yup": "^0.32.9"
   },
   "devDependencies": {
