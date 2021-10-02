@@ -12,7 +12,7 @@ import {useDefaultContext} from '@utils/contexts';
 const Window = Dimensions.get('window');
 
 const SplashScreen = () => {
-  const [_, dispatch] = useDefaultContext();
+  const [{theme}, dispatch] = useDefaultContext();
 
   const handleStorage = async () => {
     try {
@@ -65,10 +65,13 @@ const SplashScreen = () => {
   }, []);
   return (
     <SafeAreaView>
-      <StatusBar barStyle="light-content" backgroundColor={colors.PRIMARY} />
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor={colors[theme ?? 'LIGHT'].PRIMARY}
+      />
       <View
         style={{
-          backgroundColor: colors.PRIMARY,
+          backgroundColor: colors[theme ?? 'LIGHT'].PRIMARY,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',

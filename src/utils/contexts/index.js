@@ -8,6 +8,7 @@ const initialState = {
   animeList: [],
   wallpaper: '',
   wallpaperOpacity: 0.1,
+  theme: 'DARK',
 };
 
 const reducer = (state, action) => {

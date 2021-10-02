@@ -9,6 +9,7 @@ import images from '@assets/images';
 
 import fonts from '@utils/fonts';
 import colors from '@utils/themes/colors';
+import {useDefaultContext} from '@utils/contexts';
 
 const AnimeCard = ({
   title,
@@ -18,6 +19,7 @@ const AnimeCard = ({
   onPress = () => {},
   menuOnPress = () => {},
 }) => {
+  const [{theme}, _] = useDefaultContext();
   return (
     <View
       style={{
@@ -29,19 +31,19 @@ const AnimeCard = ({
       }}>
       <Pressable
         style={{
-          backgroundColor: 'white',
+          backgroundColor: colors[theme ?? 'LIGHT'].WHITE,
           height: 135,
           display: 'flex',
           flexDirection: 'row',
         }}
-        android_ripple={{color: colors.PRIMARY}}
+        android_ripple={{color: colors[theme ?? 'LIGHT'].PRIMARY}}
         onPress={onPress}>
         <View style={{flex: 1, padding: 20, justifyContent: 'center'}}>
           <Text
             style={{
               fontFamily: fonts.regular400,
               fontSize: 16,
-              color: colors.BLACK,
+              color: colors[theme ?? 'LIGHT'].BLACK,
             }}>
             {title}
           </Text>
@@ -49,14 +51,14 @@ const AnimeCard = ({
             style={{
               fontFamily: fonts.regular400,
               fontSize: 12,
-              color: colors.PRIMARY,
+              color: colors[theme ?? 'LIGHT'].PRIMARY,
             }}>
             {episodes || '-'} Episode
           </Text>
           <Text
             style={{
               fontFamily: fonts.regular400,
-              color: colors.GRAY,
+              color: colors[theme ?? 'LIGHT'].GRAY,
               fontSize: 10,
               marginTop: 10,
             }}
@@ -77,7 +79,7 @@ const AnimeCard = ({
         onPress={menuOnPress}
         size={20}
         small
-        backgroundColor={colors.RED}
+        backgroundColor={colors[theme ?? 'LIGHT'].RED}
       />
     </View>
   );

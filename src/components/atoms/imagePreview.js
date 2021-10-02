@@ -5,15 +5,17 @@ import PropTypes from 'prop-types';
 
 import fonts from '@utils/fonts';
 import colors from '@utils/themes/colors';
+import {useDefaultContext} from '@utils/contexts';
 
 const ImagePreview = ({source, opacity = 1}) => {
+  const [{theme}, _] = useDefaultContext();
   return (
     <View style={{marginTop: 10}}>
       <View
         style={{
           borderRadius: 4,
           borderWidth: 1,
-          borderColor: colors.GRAY_LIGHT,
+          borderColor: colors[theme ?? 'LIGHT'].GRAY_LIGHT,
           alignItems: 'center',
           justifyContent: 'center',
           height: 180,
@@ -24,7 +26,7 @@ const ImagePreview = ({source, opacity = 1}) => {
             style={{
               fontFamily: fonts.regular400,
               fontSize: 12,
-              color: colors.GRAY,
+              color: colors[theme ?? 'LIGHT'].GRAY,
             }}>
             Preview
           </Text>

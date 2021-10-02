@@ -5,15 +5,17 @@ import PropTypes from 'prop-types';
 
 import fonts from '@utils/fonts';
 import colors from '@utils/themes/colors';
+import {useDefaultContext} from '@utils/contexts';
 
 const Description = ({title, episodes, history}) => {
+  const [{theme}, _] = useDefaultContext();
   return (
     <View>
       <Text
         style={{
           fontFamily: fonts.medium500,
           fontSize: 24,
-          color: colors.BLACK,
+          color: colors[theme ?? 'LIGHT'].BLACK,
         }}
         numberOfLines={2}>
         {title}
@@ -21,7 +23,7 @@ const Description = ({title, episodes, history}) => {
       <Text
         style={{
           fontFamily: fonts.regular400,
-          color: colors.PRIMARY,
+          color: colors[theme ?? 'LIGHT'].PRIMARY,
           fontSize: 14,
         }}>
         {episodes || '-'} Episode
@@ -29,7 +31,7 @@ const Description = ({title, episodes, history}) => {
       <Text
         style={{
           fontFamily: fonts.regular400,
-          color: colors.BLACK,
+          color: colors[theme ?? 'LIGHT'].BLACK,
           fontSize: 12,
           marginBottom: 10,
         }}>

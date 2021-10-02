@@ -10,7 +10,7 @@ import colors from '@utils/themes/colors';
 import {useDefaultContext} from '@utils/contexts';
 
 const EpisodeItem = ({data, anime}) => {
-  const [_, dispatch] = useDefaultContext();
+  const [{theme}, dispatch] = useDefaultContext();
 
   const handleOpenFile = async () => {
     SendIntentAndroid.openAppWithData(null, data?.file, 'video/*');
@@ -31,12 +31,14 @@ const EpisodeItem = ({data, anime}) => {
     <Pressable
       style={{
         padding: 10,
-        backgroundColor: isEven(data?.id) ? 'white' : colors.GRAY_LIGHT,
+        backgroundColor: isEven(data?.id)
+          ? colors[theme ?? 'LIGHT'].WHITE
+          : colors[theme ?? 'LIGHT'].GRAY_LIGHT,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
       }}
-      android_ripple={{color: colors.PRIMARY}}
+      android_ripple={{color: colors[theme ?? 'LIGHT'].PRIMARY}}
       onPress={() => {
         handleOpenFile();
         handleInsertHistory();
@@ -45,7 +47,7 @@ const EpisodeItem = ({data, anime}) => {
         style={{
           fontFamily: fonts.regular400,
           fontSize: 14,
-          color: colors.PRIMARY,
+          color: colors[theme ?? 'LIGHT'].PRIMARY,
           maxWidth: 300,
         }}>
         {anime.title} - Episode {data?.id + 1}
@@ -55,7 +57,7 @@ const EpisodeItem = ({data, anime}) => {
           style={{
             height: 10,
             width: 10,
-            backgroundColor: colors.RED,
+            backgroundColor: colors[theme ?? 'LIGHT'].RED,
             borderRadius: 10,
           }}></View>
       )}

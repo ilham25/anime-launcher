@@ -47,7 +47,7 @@ const HomePage = ({navigation}) => {
               style={{
                 fontFamily: fonts.regular400,
                 fontSize: 24,
-                color: colors.BLACK,
+                color: colors[state.theme].BLACK,
                 textAlign: 'center',
                 width: 351,
               }}>
@@ -61,7 +61,7 @@ const HomePage = ({navigation}) => {
                   screen: 'FormPage',
                 });
               }}
-              backgroundColor={colors.PRIMARY}
+              backgroundColor={colors[state.theme].PRIMARY}
             />
           </HomeContainer>
         ) : (

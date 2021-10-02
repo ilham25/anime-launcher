@@ -22,7 +22,7 @@ import {createRandomString} from '@utils/';
 import {getEpisodes} from '@utils/';
 
 const InputForm = ({navigation, type, selected}) => {
-  const [_, dispatch] = useDefaultContext();
+  const [{theme}, dispatch] = useDefaultContext();
   const isEdit = type === 'edit' || '';
 
   const formik = useFormik({
@@ -138,7 +138,7 @@ const InputForm = ({navigation, type, selected}) => {
         <Button
           label="Simpan"
           onPress={formik.handleSubmit}
-          backgroundColor={colors.PRIMARY}
+          backgroundColor={colors[theme ?? 'LIGHT'].PRIMARY}
           disabled={isDisabled}
         />
       </FormControl>

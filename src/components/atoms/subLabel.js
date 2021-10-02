@@ -5,12 +5,14 @@ import PropTypes from 'prop-types';
 
 import colors from '@utils/themes/colors';
 import fonts from '@utils/fonts';
+import {useDefaultContext} from '@utils/contexts';
 
 const SubLabel = ({children}) => {
+  const [{theme}, _] = useDefaultContext();
   return (
     <Text
       style={{
-        color: colors.GRAY,
+        color: colors[theme ?? 'LIGHT'].GRAY,
         fontSize: 12,
         fontFamily: fonts.regular400,
       }}>

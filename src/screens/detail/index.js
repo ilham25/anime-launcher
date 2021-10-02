@@ -109,14 +109,14 @@ const AnimeDetailpage = ({route, navigation}) => {
             }}
             left={{
               name: 'arrow-back',
-              color: 'white',
+              color: colors[state.theme].WHITE,
               onPress: () => {
                 navigation.goBack();
               },
             }}
             right={{
               name: 'more-vert',
-              color: 'white',
+              color: colors[state.theme].WHITE,
               onPress: () => {
                 setSelectedAnime(anime);
                 bottomSheet.current.open();
@@ -128,7 +128,7 @@ const AnimeDetailpage = ({route, navigation}) => {
       <View
         style={{
           height: Screen.height * 0.6,
-          backgroundColor: colors.WHITE,
+          backgroundColor: colors[state.theme].WHITE,
           padding: 20,
           position: 'relative',
         }}>

@@ -5,12 +5,14 @@ import PropTypes from 'prop-types';
 
 import colors from '@utils/themes/colors';
 import fonts from '@utils/fonts';
+import {useDefaultContext} from '@utils/contexts';
 
 const TextError = ({children}) => {
+  const [{theme}, _] = useDefaultContext();
   return (
     <Text
       style={{
-        color: colors.RED,
+        color: colors[theme ?? 'LIGHT'].RED,
         fontSize: 12,
         fontFamily: fonts.regular400,
       }}>

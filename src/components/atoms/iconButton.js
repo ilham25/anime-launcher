@@ -5,14 +5,16 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import PropTypes from 'prop-types';
 
 import colors from '@utils/themes/colors';
+import {useDefaultContext} from '@utils/contexts';
 
 const IconButton = ({
   name,
   size = 28,
-  rippleColor = colors.PRIMARY,
-  color = colors.BLACK,
+  rippleColor = colors['LIGHT'].PRIMARY,
+  color = colors['LIGHT'].BLACK,
   onPress,
 }) => {
+  const [{theme}, _] = useDefaultContext();
   return (
     <View
       style={{

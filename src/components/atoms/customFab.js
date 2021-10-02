@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import Icons from 'react-native-vector-icons/MaterialIcons';
 
 import colors from '@utils/themes/colors';
+import {useDefaultContext} from '@utils/contexts';
 
 const CustomFab = ({
   style,
@@ -14,6 +15,7 @@ const CustomFab = ({
   small,
   backgroundColor,
 }) => {
+  const [{theme}, _] = useDefaultContext();
   return (
     <View
       style={{
@@ -29,12 +31,14 @@ const CustomFab = ({
         style={{
           height: (!small ? 40 : 5) + size,
           width: (!small ? 40 : 5) + size,
-          backgroundColor: !backgroundColor ? colors.PRIMARY : backgroundColor,
+          backgroundColor: !backgroundColor
+            ? colors[theme ?? 'LIGHT'].PRIMARY
+            : backgroundColor,
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
         }}
-        android_ripple={{color: colors.GRAY_LIGHT}}
+        android_ripple={{color: colors[theme ?? 'LIGHT'].GRAY_LIGHT}}
         onPress={onPress}>
         <Icons name={icon} size={size} color="white" />
       </Pressable>

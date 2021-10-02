@@ -88,7 +88,7 @@ const SettingsForm = ({navigation}) => {
           onPress={() => {
             handleSubmit();
           }}
-          backgroundColor={colors.PRIMARY}
+          backgroundColor={colors[state.theme].PRIMARY}
         />
       </FormControl>
     </View>

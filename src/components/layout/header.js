@@ -9,6 +9,7 @@ import images from '@assets/images';
 
 import fonts from '@utils/fonts';
 import colors from '@utils/themes/colors';
+import {useDefaultContext} from '@utils/contexts';
 
 const Screen = Dimensions.get('screen');
 
@@ -22,6 +23,7 @@ const Header = ({
   style,
   brand,
 }) => {
+  const [{theme}, _] = useDefaultContext();
   const titleAlignEnum = {
     left: 'flex-start',
     center: 'center',
@@ -36,12 +38,13 @@ const Header = ({
         height: 75,
         alignItems: 'center',
         paddingHorizontal: 15,
+        backgroundColor: colors[theme ?? 'LIGHT'].WHITE,
       }}>
       {!brand &&
         (left ? (
           <IconButton
             name={left.name || 'menu'}
-            color={left.color || colors.BLACK}
+            color={left.color || colors[theme ?? 'LIGHT'].BLACK}
             onPress={left.onPress}
           />
         ) : (
@@ -66,7 +69,7 @@ const Header = ({
             fontFamily: fonts.medium500,
             fontSize: 18,
             marginBottom: -5,
-            color: colors.PRIMARY,
+            color: colors[theme ?? 'LIGHT'].PRIMARY,
             ...titleStyle,
           }}>
           {title}
@@ -75,7 +78,7 @@ const Header = ({
       {right ? (
         <IconButton
           name={right.name || 'search'}
-          color={right.color || colors.BLACK}
+          color={right.color || colors[theme ?? 'LIGHT'].BLACK}
           onPress={right.onPress}
         />
       ) : (
@@ -98,7 +101,7 @@ const Header = ({
       {left ? (
         <IconButton
           name={left.name || 'menu'}
-          color={left.color || colors.BLACK}
+          color={left.color || colors[theme ?? 'LIGHT'].BLACK}
           onPress={left.onPress}
         />
       ) : (
@@ -107,7 +110,7 @@ const Header = ({
       {right ? (
         <IconButton
           name={right.name || 'menu'}
-          color={right.color || colors.BLACK}
+          color={right.color || colors[theme ?? 'LIGHT'].BLACK}
           onPress={right.onPress}
         />
       ) : (
