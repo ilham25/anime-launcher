@@ -13,7 +13,9 @@ const ColorSchemeToggle = () => {
 
   return (
     <View>
-      <FormLabel>Mode Gelap</FormLabel>
+      <FormLabel style={{color: colors[theme || 'LIGHT'].TEXT_SECONDARY}}>
+        Mode Gelap
+      </FormLabel>
       <Switch
         value={isDark}
         onValueChange={value => {

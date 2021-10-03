@@ -68,7 +68,10 @@ const SettingsForm = ({navigation}) => {
       </Text>
       <SettingsContainer>
         <FormControl>
-          <FormLabel>Gambar</FormLabel>
+          <FormLabel
+            style={{color: colors[state.theme || 'LIGHT'].TEXT_SECONDARY}}>
+            Gambar
+          </FormLabel>
           <Button
             onPress={() => {
               handleFile();
@@ -86,7 +89,10 @@ const SettingsForm = ({navigation}) => {
           />
         </FormControl>
         <FormControl>
-          <FormLabel>Transparansi Wallpaper</FormLabel>
+          <FormLabel
+            style={{color: colors[state.theme || 'LIGHT'].TEXT_SECONDARY}}>
+            Transparansi Wallpaper
+          </FormLabel>
           <OpacitySlider
             wallpaperOpacityProps={{
               get: wallpaperOpacity,

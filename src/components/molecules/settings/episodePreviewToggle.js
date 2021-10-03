@@ -13,7 +13,9 @@ const EpisodePreviewToggle = () => {
 
   return (
     <View>
-      <FormLabel>Tampilkan preview episode</FormLabel>
+      <FormLabel style={{color: colors[theme || 'LIGHT'].TEXT_SECONDARY}}>
+        Tampilkan preview episode
+      </FormLabel>
       <Switch
         value={isPreview}
         onValueChange={value => {
