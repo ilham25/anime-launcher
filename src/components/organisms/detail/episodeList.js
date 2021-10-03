@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef, useEffect} from 'react';
 
 import {Text, FlatList, Pressable, View} from 'react-native';
 import PropTypes from 'prop-types';
@@ -13,6 +13,7 @@ const EpisodeItem = ({
   anime,
   episodePreviewProps,
   selectedEpisodeIndexProps,
+  handleOpenFile,
 }) => {
   const [{theme, episodePreview: isEpisodePreview}, _] = useDefaultContext();
 
@@ -39,7 +40,11 @@ const EpisodeItem = ({
         android_ripple={{color: colors[theme ?? 'LIGHT'].PRIMARY}}
         onPress={() => {
           isEpisodePreview && setEpisodePreview(data?.file);
-          setSelectedEpisodeIndex(data?.id);
+          if (selectedEpisodeIndex === data?.id) {
+            handleOpenFile();
+          } else {
+            setSelectedEpisodeIndex(data?.id);
+          }
         }}>
         <View
           style={{
@@ -89,18 +94,32 @@ const EpisodeList = ({
   anime,
   episodePreviewProps,
   selectedEpisodeIndexProps,
+  handleOpenFile,
 }) => {
+  const flatListRef = useRef();
+
   const renderItem = ({item}) => (
     <EpisodeItem
       data={item}
       anime={anime}
       episodePreviewProps={episodePreviewProps}
       selectedEpisodeIndexProps={selectedEpisodeIndexProps}
+      handleOpenFile={handleOpenFile}
     />
   );
 
+  useEffect(() => {
+    setTimeout(() => {
+      flatListRef.current?.scrollToIndex({
+        animated: true,
+        index: selectedEpisodeIndexProps.get,
+      });
+    }, 500);
+  }, [dataSource]);
+
   return (
     <FlatList
+      ref={flatListRef}
       data={dataSource}
       renderItem={renderItem}
       keyExtractor={data => data.id}
@@ -121,6 +140,7 @@ EpisodeList.propTypes = {
     get: PropTypes.number.isRequired,
     set: PropTypes.func.isRequired,
   }).isRequired,
+  handleOpenFile: PropTypes.func.isRequired,
 };
 
 EpisodeItem.propTypes = {
@@ -134,6 +154,7 @@ EpisodeItem.propTypes = {
     get: PropTypes.number.isRequired,
     set: PropTypes.func.isRequired,
   }).isRequired,
+  handleOpenFile: PropTypes.func.isRequired,
 };
 
 export default EpisodeList;

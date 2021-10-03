@@ -142,6 +142,7 @@ const AnimeDetailpage = ({route, navigation}) => {
             get: selectedEpisodeIndex,
             set: setSelectedEpisodeIndex,
           }}
+          handleOpenFile={handleOpenFile}
         />
         <CustomFab
           style={{top: -37.5, right: Screen.width * 0.1}}
