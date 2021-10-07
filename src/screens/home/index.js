@@ -23,7 +23,7 @@ const HomePage = ({navigation}) => {
   return (
     <Layout>
       <Header
-        title="List anime kamu"
+        title="Daftar anime kamu"
         brand
         right={{
           onPress: () => {

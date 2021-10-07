@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
-import {View, Appearance, Text} from 'react-native';
+import {Text, ScrollView, ToastAndroid} from 'react-native';
 import PropTypes from 'prop-types';
 import {StackActions} from '@react-navigation/native';
+import CodePush from 'react-native-code-push';
 
 import Button from '@components/atoms/button';
 import FormControl from '@components/atoms/formControl';
@@ -58,7 +59,10 @@ const SettingsForm = ({navigation}) => {
   };
 
   return (
-    <View style={{padding: 20}}>
+    <ScrollView
+      style={{height: '100%'}}
+      contentContainerStyle={{padding: 20, paddingBottom: 100}}
+      showsVerticalScrollIndicator={false}>
       <Text
         style={{
           fontFamily: fonts.medium500,
@@ -124,7 +128,7 @@ const SettingsForm = ({navigation}) => {
         <EpisodePreviewToggle />
       </SettingsContainer>
 
-      <FormControl>
+      <FormControl style={{marginBottom: 5, marginTop: 10}}>
         <Button
           label="Simpan"
           onPress={() => {
@@ -133,7 +137,50 @@ const SettingsForm = ({navigation}) => {
           backgroundColor={colors[state.theme].PRIMARY}
         />
       </FormControl>
-    </View>
+
+      <FormControl>
+        <Button
+          label="Update Aplikasi"
+          onPress={() => {
+            CodePush.sync(
+              {
+                updateDialog: true,
+                installMode: CodePush.InstallMode.IMMEDIATE,
+              },
+              status => {
+                switch (status) {
+                  case CodePush.SyncStatus.CHECKING_FOR_UPDATE:
+                    ToastAndroid.show(
+                      'Checking for updates.',
+                      ToastAndroid.SHORT,
+                    );
+                    break;
+                  case CodePush.SyncStatus.DOWNLOADING_PACKAGE:
+                    ToastAndroid.show(
+                      'Downloading package.',
+                      ToastAndroid.SHORT,
+                    );
+                    break;
+                  case CodePush.SyncStatus.INSTALLING_UPDATE:
+                    ToastAndroid.show('Installing update.', ToastAndroid.SHORT);
+                    break;
+                  case CodePush.SyncStatus.UP_TO_DATE:
+                    ToastAndroid.show('Up-to-date.', ToastAndroid.SHORT);
+                    break;
+                  case CodePush.SyncStatus.UPDATE_INSTALLED:
+                    ToastAndroid.show('Update installed.', ToastAndroid.SHORT);
+                    break;
+                }
+              },
+            );
+          }}
+          backgroundColor={colors[state.theme].RED}
+          labelStyle={{
+            color: 'white',
+          }}
+        />
+      </FormControl>
+    </ScrollView>
   );
 };
 
