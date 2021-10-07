@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Anime Launcher</string>
+    <string moduleConfig="true" name="CodePushDeploymentKey">FGdDTj2JJegWO4KX4w1NylIaktG0Ii7tZLzrj</string>
 </resources>

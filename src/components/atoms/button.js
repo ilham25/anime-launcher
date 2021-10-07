@@ -12,6 +12,7 @@ const ButtonComponent = ({
   label = 'Pilih',
   backgroundColor = colors['LIGHT'].YELLOW,
   style = {},
+  labelStyle = {},
   disabled,
 }) => {
   const [{theme}, _] = useDefaultContext();
@@ -44,6 +45,7 @@ const ButtonComponent = ({
               ? colors[theme ?? 'LIGHT'].GRAY
               : colors[theme ?? 'LIGHT'].WHITE,
             fontSize: 14,
+            ...labelStyle,
           }}>
           {label}
         </Text>
@@ -57,6 +59,7 @@ ButtonComponent.propTypes = {
   label: PropTypes.string,
   backgroundColor: PropTypes.string,
   style: PropTypes.object,
+  labelStyle: PropTypes.object,
   disabled: PropTypes.bool,
 };
 
