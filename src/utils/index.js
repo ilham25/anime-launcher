@@ -29,7 +29,15 @@ export const getDirectory = async () => {
 
       const fullDirName = decodeURIComponent(externalDir + selectedDir);
 
-      return fullDirName;
+      if (!selectedDir) {
+        ToastAndroid.show(
+          'Tidak bisa pilih direktori dari external!',
+          ToastAndroid.SHORT,
+        );
+        return '';
+      } else {
+        return fullDirName;
+      }
     } else {
       ToastAndroid.show('Access Denied!', ToastAndroid.SHORT);
     }
@@ -54,7 +62,15 @@ export const getFile = async () => {
 
       const fullFileName = decodeURIComponent(externalDir + selectedFile);
 
-      return fullFileName;
+      if (!selectedFile) {
+        ToastAndroid.show(
+          'Tidak bisa pilih file dari external!',
+          ToastAndroid.SHORT,
+        );
+        return '';
+      } else {
+        return fullFileName;
+      }
     } else {
       ToastAndroid.show('Access Denied!', ToastAndroid.SHORT);
     }
