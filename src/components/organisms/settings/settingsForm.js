@@ -60,7 +60,6 @@ const SettingsForm = ({navigation}) => {
 
   return (
     <ScrollView
-      style={{height: '100%'}}
       contentContainerStyle={{padding: 20, paddingBottom: 100}}
       showsVerticalScrollIndicator={false}>
       <Text

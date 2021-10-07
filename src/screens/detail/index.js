@@ -17,6 +17,7 @@ import images from '@assets/images';
 import colors from '@utils/themes/colors';
 import {getEpisodes} from '@utils/';
 import {useDefaultContext} from '@utils/contexts';
+import {isURL} from '@utils/';
 
 const Screen = Dimensions.get('screen');
 
@@ -82,9 +83,11 @@ const AnimeDetailpage = ({route, navigation}) => {
         }}>
         <Image
           source={
-            image
+            episodePreview
               ? {
-                  uri: `file://${episodePreview}`,
+                  uri: isURL(episodePreview)
+                    ? episodePreview
+                    : `file://${episodePreview}`,
                 }
               : images.thumbnail
           }

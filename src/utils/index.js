@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import sortArray from 'sort-array';
 
 import {VIDEO_EXTENSIONS} from './constants/fileExtensions';
+import {DETECT_URL_REGEX} from './constants/regex';
 
 const externalStorageDirectoryUri =
   'content://com.android.externalstorage.documents/tree/primary:';
@@ -100,3 +101,7 @@ export const getStorage = async () => {
 export const createRandomString = () =>
   Math.random().toString(36).substring(2, 15) +
   Math.random().toString(36).substring(2, 15);
+
+export const isURL = target => {
+  return target.match(DETECT_URL_REGEX);
+};

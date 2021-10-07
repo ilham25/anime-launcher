@@ -10,6 +10,7 @@ import images from '@assets/images';
 import fonts from '@utils/fonts';
 import colors from '@utils/themes/colors';
 import {useDefaultContext} from '@utils/contexts';
+import {isURL} from '@utils/';
 
 const AnimeCard = ({
   title,
@@ -69,7 +70,11 @@ const AnimeCard = ({
         </View>
         <View style={{width: 140}}>
           <Image
-            source={image ? {uri: `file://${image}`} : images.thumbnail}
+            source={
+              image
+                ? {uri: isURL(image) ? image : `file://${image}`}
+                : images.thumbnail
+            }
             style={{width: 140, height: 135, resizeMode: 'cover'}}
           />
         </View>
