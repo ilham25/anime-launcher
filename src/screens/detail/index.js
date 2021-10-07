@@ -17,11 +17,16 @@ import images from '@assets/images';
 import colors from '@utils/themes/colors';
 import {getEpisodes} from '@utils/';
 import {useDefaultContext} from '@utils/contexts';
+import {isURL} from '@utils/';
 
 const Screen = Dimensions.get('screen');
 
 const AnimeDetailpage = ({route, navigation}) => {
   const {animeId} = route.params || {};
+  const [state, dispatch] = useDefaultContext();
+
+  const anime = state.animeList.find(anime => anime.id === animeId);
+  const {title, episodes, directory, image, history} = anime || {};
 
   const bottomSheet = useRef();
 
@@ -30,12 +35,10 @@ const AnimeDetailpage = ({route, navigation}) => {
     id: '',
     title: '',
   });
-
-  const [state, dispatch] = useDefaultContext();
-
-  const anime = state.animeList.find(anime => anime.id === animeId);
-
-  const {title, episodes, directory, image, history} = anime || {};
+  const [episodePreview, setEpisodePreview] = useState(image);
+  const [selectedEpisodeIndex, setSelectedEpisodeIndex] = useState(
+    history?.length > 0 ? history[history?.length - 1] - 1 : 0,
+  );
 
   const handleEpisodesList = async () => {
     try {
@@ -46,25 +49,23 @@ const AnimeDetailpage = ({route, navigation}) => {
     }
   };
 
-  const handleOpenFile = () => {
-    const episodeToPlayIndex =
-      history?.length > 0 ? history[history.length - 1] - 1 : 0;
-
+  const handleOpenFile = async () => {
     SendIntentAndroid.openAppWithData(
       null,
-      dataSource[episodeToPlayIndex].file,
+      dataSource[selectedEpisodeIndex].file,
       'video/*',
     );
-    if (history?.length === 0) {
-      dispatch({
-        type: 'animeList',
-        payload: {
-          type: 'CREATE_ANIME_HISTORY',
-          animeId: animeId,
-          selectedEpisode: episodeToPlayIndex + 1,
-        },
-      });
-    }
+  };
+
+  const handleInsertHistory = () => {
+    dispatch({
+      type: 'animeList',
+      payload: {
+        type: 'CREATE_ANIME_HISTORY',
+        animeId: anime.id,
+        selectedEpisode: selectedEpisodeIndex + 1,
+      },
+    });
   };
 
   useEffect(() => {
@@ -82,9 +83,11 @@ const AnimeDetailpage = ({route, navigation}) => {
         }}>
         <Image
           source={
-            image
+            episodePreview
               ? {
-                  uri: `file://${image}`,
+                  uri: isURL(episodePreview)
+                    ? episodePreview
+                    : `file://${episodePreview}`,
                 }
               : images.thumbnail
           }
@@ -109,14 +112,14 @@ const AnimeDetailpage = ({route, navigation}) => {
             }}
             left={{
               name: 'arrow-back',
-              color: 'white',
+              color: colors['LIGHT'].WHITE,
               onPress: () => {
                 navigation.goBack();
               },
             }}
             right={{
               name: 'more-vert',
-              color: 'white',
+              color: colors['LIGHT'].WHITE,
               onPress: () => {
                 setSelectedAnime(anime);
                 bottomSheet.current.open();
@@ -128,26 +131,38 @@ const AnimeDetailpage = ({route, navigation}) => {
       <View
         style={{
           height: Screen.height * 0.6,
-          backgroundColor: colors.WHITE,
+          backgroundColor: colors[state.theme].WHITE,
           padding: 20,
           position: 'relative',
         }}>
         <Description title={title} episodes={episodes} history={history} />
-        <EpisodeList title={title} dataSource={dataSource} anime={anime} />
+        <EpisodeList
+          title={title}
+          dataSource={dataSource}
+          anime={anime}
+          episodePreviewProps={{get: episodePreview, set: setEpisodePreview}}
+          selectedEpisodeIndexProps={{
+            get: selectedEpisodeIndex,
+            set: setSelectedEpisodeIndex,
+          }}
+          handleOpenFile={handleOpenFile}
+        />
         <CustomFab
           style={{top: -37.5, right: Screen.width * 0.1}}
           icon="play-arrow"
           onPress={() => {
             handleOpenFile();
+            handleInsertHistory();
           }}
         />
       </View>
       <BottomSheet
         ref={bottomSheet}
-        height={250}
+        height={180}
         customStyles={{
           container: {
             padding: 20,
+            backgroundColor: colors[state.theme ?? 'LIGHT'].BACKGROUND,
           },
         }}>
         <MenuComponent

@@ -8,12 +8,12 @@ import WallpaperContainer from '@components/organisms/home/wallpaperContainer';
 import Wallpaper from '@components/organisms/home/wallpaper';
 import HomeContainer from '@components/organisms/home/homeContainer';
 import Button from '@components/atoms/button';
+import AnimeList from '@components/organisms/home/animeList';
+import CustomFab from '@components/atoms/customFab';
 
 import fonts from '@utils/fonts';
 import colors from '@utils/themes/colors';
-import AnimeList from '@components/organisms/home/animeList';
 import {useDefaultContext} from '@utils/contexts';
-import CustomFab from '@components/atoms/customFab';
 
 const Screen = Dimensions.get('screen');
 
@@ -23,7 +23,7 @@ const HomePage = ({navigation}) => {
   return (
     <Layout>
       <Header
-        title="List anime kamu"
+        title="Daftar anime kamu"
         brand
         right={{
           onPress: () => {
@@ -47,21 +47,21 @@ const HomePage = ({navigation}) => {
               style={{
                 fontFamily: fonts.regular400,
                 fontSize: 24,
-                color: colors.BLACK,
+                color: colors[state.theme].BLACK,
                 textAlign: 'center',
                 width: 351,
               }}>
-              Kayaknya kamu belum masukin anime ke aplikasi ini
+              Sepertinya kamu belum nambahin anime kamu kesini deh
             </Text>
             <Button
-              label="Tambah Anime"
+              label="Yuk tambah!"
               style={{marginTop: 10}}
               onPress={() => {
                 navigation.navigate('App', {
                   screen: 'FormPage',
                 });
               }}
-              backgroundColor={colors.PRIMARY}
+              backgroundColor={colors[state.theme].PRIMARY}
             />
           </HomeContainer>
         ) : (

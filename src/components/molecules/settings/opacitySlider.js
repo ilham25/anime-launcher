@@ -6,21 +6,27 @@ import PropTypes from 'prop-types';
 
 import colors from '@utils/themes/colors';
 import fonts from '@utils/fonts';
+import {useDefaultContext} from '@utils/contexts';
 
 const OpacitySlider = ({wallpaperOpacityProps}) => {
+  const [{theme}, _] = useDefaultContext();
   const {get: wallpaperOpacity, set: setWallpaperOpacity} =
     wallpaperOpacityProps;
 
   const [opacity, setOpacity] = useState(wallpaperOpacity * 100);
+
   return (
     <View
       style={{
         alignItems: 'center',
         borderWidth: 1,
-        borderColor: colors.GRAY_LIGHT,
+        borderColor: colors[theme ?? 'LIGHT'].GRAY_LIGHT,
         paddingTop: 20,
+        borderRadius: 4,
       }}>
-      <Text style={{fontFamily: fonts.regular400}}>{opacity}%</Text>
+      <Text style={{fontFamily: fonts.regular400, color: colors[theme].TEXT}}>
+        {(+opacity).toFixed(0)}%
+      </Text>
       <MultiSlider
         values={[opacity]}
         min={0}
@@ -35,10 +41,10 @@ const OpacitySlider = ({wallpaperOpacityProps}) => {
           width: '100%',
         }}
         markerStyle={{
-          backgroundColor: colors.PRIMARY,
+          backgroundColor: colors[theme ?? 'LIGHT'].PRIMARY,
         }}
         selectedStyle={{
-          backgroundColor: colors.PRIMARY,
+          backgroundColor: colors[theme ?? 'LIGHT'].PRIMARY,
         }}
         sliderLength={300}
         touchDimensions={{

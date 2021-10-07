@@ -8,7 +8,7 @@ import SettingsForm from '@components/organisms/settings/settingsForm';
 
 const SettingsPage = ({navigation}) => {
   return (
-    <Layout scrollable>
+    <Layout>
       <Header
         title="Pengaturan"
         left={{

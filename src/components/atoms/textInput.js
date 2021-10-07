@@ -5,21 +5,23 @@ import PropTypes from 'prop-types';
 
 import colors from '@utils/themes/colors';
 import fonts from '@utils/fonts';
+import {useDefaultContext} from '@utils/contexts';
 
 const TextInputComponent = ({...props}) => {
+  const [{theme}, _] = useDefaultContext();
   return (
     <TextInput
       style={{
         fontSize: 12,
         height: 40,
         paddingHorizontal: 10,
-        color: colors.BLACK,
+        color: colors[theme ?? 'LIGHT'].BLACK,
         borderWidth: 1,
-        borderColor: colors.GRAY_LIGHT,
+        borderColor: colors[theme ?? 'LIGHT'].GRAY_LIGHT,
         borderRadius: 4,
         fontFamily: fonts.regular400,
       }}
-      placeholderTextColor={colors.GRAY_LIGHT}
+      placeholderTextColor={colors[theme ?? 'LIGHT'].GRAY_LIGHT}
       {...props}
     />
   );

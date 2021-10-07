@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 
-import {View, Image, StatusBar, Dimensions} from 'react-native';
+import {View, Image, StatusBar, Dimensions, Appearance} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 import images from '@assets/images';
@@ -12,12 +12,13 @@ import {useDefaultContext} from '@utils/contexts';
 const Window = Dimensions.get('window');
 
 const SplashScreen = () => {
-  const [_, dispatch] = useDefaultContext();
+  const [{theme}, dispatch] = useDefaultContext();
+
+  const colorScheme = Appearance.getColorScheme();
 
   const handleStorage = async () => {
     try {
       const getStorageData = await getStorage();
-
       if (getStorageData) {
         if (getStorageData.animeList) {
           dispatch({
@@ -31,7 +32,6 @@ const SplashScreen = () => {
             },
           });
         }
-
         if (getStorageData.wallpaper) {
           dispatch({
             type: 'wallpaper',
@@ -54,7 +54,25 @@ const SplashScreen = () => {
             },
           });
         }
+        if (getStorageData.episodePreview !== undefined) {
+          dispatch({
+            type: 'episodePreview',
+            payload: {
+              type: 'INITIAL',
+              episodePreview: getStorageData.episodePreview,
+            },
+          });
+        }
       }
+      dispatch({
+        type: 'theme',
+        payload: {
+          type: 'INITIAL',
+          theme: !getStorageData?.theme
+            ? colorScheme.toUpperCase()
+            : getStorageData?.theme,
+        },
+      });
     } catch (error) {
       console.log('handleStorage err', error);
     }
@@ -65,10 +83,13 @@ const SplashScreen = () => {
   }, []);
   return (
     <SafeAreaView>
-      <StatusBar barStyle="light-content" backgroundColor={colors.PRIMARY} />
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor={colors[theme ?? 'LIGHT'].PRIMARY}
+      />
       <View
         style={{
-          backgroundColor: colors.PRIMARY,
+          backgroundColor: colors[theme ?? 'LIGHT'].PRIMARY,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',

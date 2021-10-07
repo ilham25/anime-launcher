@@ -9,6 +9,8 @@ import images from '@assets/images';
 
 import fonts from '@utils/fonts';
 import colors from '@utils/themes/colors';
+import {useDefaultContext} from '@utils/contexts';
+import {isURL} from '@utils/';
 
 const AnimeCard = ({
   title,
@@ -18,6 +20,7 @@ const AnimeCard = ({
   onPress = () => {},
   menuOnPress = () => {},
 }) => {
+  const [{theme}, _] = useDefaultContext();
   return (
     <View
       style={{
@@ -29,34 +32,35 @@ const AnimeCard = ({
       }}>
       <Pressable
         style={{
-          backgroundColor: 'white',
+          backgroundColor: colors[theme ?? 'LIGHT'].WHITE,
           height: 135,
           display: 'flex',
           flexDirection: 'row',
         }}
-        android_ripple={{color: colors.PRIMARY}}
+        android_ripple={{color: colors[theme ?? 'LIGHT'].PRIMARY}}
         onPress={onPress}>
         <View style={{flex: 1, padding: 20, justifyContent: 'center'}}>
           <Text
             style={{
               fontFamily: fonts.regular400,
               fontSize: 16,
-              color: colors.BLACK,
-            }}>
+              color: colors[theme ?? 'LIGHT'].BLACK,
+            }}
+            numberOfLines={2}>
             {title}
           </Text>
           <Text
             style={{
               fontFamily: fonts.regular400,
               fontSize: 12,
-              color: colors.PRIMARY,
+              color: colors[theme ?? 'LIGHT'].PRIMARY,
             }}>
             {episodes || '-'} Episode
           </Text>
           <Text
             style={{
               fontFamily: fonts.regular400,
-              color: colors.GRAY,
+              color: colors[theme ?? 'LIGHT'].GRAY,
               fontSize: 10,
               marginTop: 10,
             }}
@@ -66,7 +70,11 @@ const AnimeCard = ({
         </View>
         <View style={{width: 140}}>
           <Image
-            source={image ? {uri: `file://${image}`} : images.thumbnail}
+            source={
+              image
+                ? {uri: isURL(image) ? image : `file://${image}`}
+                : images.thumbnail
+            }
             style={{width: 140, height: 135, resizeMode: 'cover'}}
           />
         </View>
@@ -77,7 +85,7 @@ const AnimeCard = ({
         onPress={menuOnPress}
         size={20}
         small
-        backgroundColor={colors.RED}
+        backgroundColor={colors[theme ?? 'LIGHT'].RED}
       />
     </View>
   );

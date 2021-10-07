@@ -15,7 +15,7 @@ const MenuComponent = ({
   bottomSheetRef,
   showClearHistory,
 }) => {
-  const [_, dispatch] = useDefaultContext();
+  const [{theme}, dispatch] = useDefaultContext();
   const navigation = useNavigation();
 
   const {get: selected} = selectedAnimeProps;
@@ -63,19 +63,21 @@ const MenuComponent = ({
         style={{
           fontFamily: fonts.semiBold600,
           fontSize: 18,
-          color: colors.BLACK,
+          color: colors[theme ?? 'LIGHT'].BLACK,
         }}
         numberOfLines={2}>
         {selected.title}
       </Text>
       <View>
-        <Button
-          label="Hapus"
-          onPress={() => {
-            handleDelete();
-          }}
-          backgroundColor={colors.RED}
-        />
+        {!showClearHistory && (
+          <Button
+            label="Hapus"
+            onPress={() => {
+              handleDelete();
+            }}
+            backgroundColor={colors[theme ?? 'LIGHT'].RED}
+          />
+        )}
         <Button
           label="Ubah"
           onPress={() => {
@@ -88,7 +90,7 @@ const MenuComponent = ({
             onPress={() => {
               handleClearHistory();
             }}
-            backgroundColor={colors.PRIMARY}
+            backgroundColor={colors[theme ?? 'LIGHT'].PRIMARY}
           />
         )}
       </View>

@@ -1,10 +1,11 @@
 import React from 'react';
 
-import {View, ToastAndroid} from 'react-native';
+import {ToastAndroid, ScrollView} from 'react-native';
 import {useFormik} from 'formik';
 import * as yup from 'yup';
 import {StackActions} from '@react-navigation/native';
 import PropTypes from 'prop-types';
+import {useDebounce} from 'use-debounce/lib';
 
 import FormControl from '@components/atoms/formControl';
 import FormLabel from '@components/atoms/formLabel';
@@ -13,6 +14,7 @@ import TextError from '@components/atoms/textError';
 import Button from '@components/atoms/button';
 import ImagePreview from '@components/atoms/imagePreview';
 import SubLabel from '@components/atoms/subLabel';
+import SearchFromInternet from '@components/molecules/home/searchFromInternet';
 
 import colors from '@utils/themes/colors';
 import {getDirectory} from '@utils/';
@@ -20,9 +22,10 @@ import {getFile} from '@utils/';
 import {useDefaultContext} from '@utils/contexts';
 import {createRandomString} from '@utils/';
 import {getEpisodes} from '@utils/';
+import {isURL} from '@utils/';
 
 const InputForm = ({navigation, type, selected}) => {
-  const [_, dispatch] = useDefaultContext();
+  const [{theme}, dispatch] = useDefaultContext();
   const isEdit = type === 'edit' || '';
 
   const formik = useFormik({
@@ -39,6 +42,8 @@ const InputForm = ({navigation, type, selected}) => {
       handleSubmit(values);
     },
   });
+
+  const [nameSearchDebounce] = useDebounce(formik.values.title, 1000);
 
   const handleDirectory = async field => {
     try {
@@ -88,7 +93,9 @@ const InputForm = ({navigation, type, selected}) => {
 
   const isDisabled = !formik.values.title || !formik.values.directory;
   return (
-    <View style={{padding: 20}}>
+    <ScrollView
+      contentContainerStyle={{padding: 20, paddingBottom: 100}}
+      showsVerticalScrollIndicator={false}>
       <FormControl>
         <FormLabel isRequired>Nama Anime</FormLabel>
         <TextInput
@@ -100,6 +107,12 @@ const InputForm = ({navigation, type, selected}) => {
           <TextError>{formik.errors.title}</TextError>
         )}
       </FormControl>
+
+      <SearchFromInternet
+        formik={formik}
+        nameSearchDebounce={nameSearchDebounce}
+      />
+
       <FormControl>
         <FormLabel isRequired>Pilih direktori</FormLabel>
         <Button
@@ -128,7 +141,9 @@ const InputForm = ({navigation, type, selected}) => {
             !formik.values.image
               ? null
               : {
-                  uri: `file://${formik.values.image}`,
+                  uri: isURL(formik.values.image)
+                    ? formik.values.image
+                    : `file://${formik.values.image}`,
                 }
           }
         />
@@ -138,11 +153,11 @@ const InputForm = ({navigation, type, selected}) => {
         <Button
           label="Simpan"
           onPress={formik.handleSubmit}
-          backgroundColor={colors.PRIMARY}
+          backgroundColor={colors[theme ?? 'LIGHT'].PRIMARY}
           disabled={isDisabled}
         />
       </FormControl>
-    </View>
+    </ScrollView>
   );
 };
 

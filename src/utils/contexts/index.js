@@ -1,6 +1,8 @@
 import React, {createContext, useContext, useReducer} from 'react';
 
 import animeListReducer from './reducers/animeListReducer';
+import episodePreviewReducer from './reducers/episodePreviewReducer';
+import themeReducer from './reducers/themeReducer';
 import wallpaperOpacityReducer from './reducers/wallpaperOpacityReducer';
 import wallpaperReducer from './reducers/wallpaperReducer';
 
@@ -8,6 +10,8 @@ const initialState = {
   animeList: [],
   wallpaper: '',
   wallpaperOpacity: 0.1,
+  theme: 'DARK',
+  episodePreview: true,
 };
 
 const reducer = (state, action) => {
@@ -18,6 +22,10 @@ const reducer = (state, action) => {
       return wallpaperReducer(state, action);
     case 'wallpaperOpacity':
       return wallpaperOpacityReducer(state, action);
+    case 'theme':
+      return themeReducer(state, action);
+    case 'episodePreview':
+      return episodePreviewReducer(state, action);
     default:
       return state;
   }

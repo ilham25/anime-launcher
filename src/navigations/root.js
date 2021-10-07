@@ -5,11 +5,14 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import SplashScreen from '@screens/splash';
 import AppNav from './app';
+import {useDefaultContext} from '@utils/contexts';
+import colors from '@utils/themes/colors';
 
 const Stack = createStackNavigator();
 
 const RootNavigator = () => {
   const [loading, setLoading] = useState(true);
+  const [{theme}, _] = useDefaultContext();
 
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000);
@@ -20,7 +23,7 @@ const RootNavigator = () => {
     colors: {
       ...DefaultTheme.colors,
       text: '#080522',
-      background: '#fff',
+      background: colors[theme].BACKGROUND,
     },
   };
 
