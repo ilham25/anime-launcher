@@ -23,6 +23,7 @@ import {useDefaultContext} from '@utils/contexts';
 import {createRandomString} from '@utils/';
 import {getEpisodes} from '@utils/';
 import {isURL} from '@utils/';
+import {AL_ERROR_CODE} from '@utils/constants/errorCode';
 
 const InputForm = ({navigation, type, selected}) => {
   const [{theme}, dispatch] = useDefaultContext();
@@ -51,6 +52,10 @@ const InputForm = ({navigation, type, selected}) => {
       formik.setFieldValue(field, selectedDir);
     } catch (error) {
       console.log('selectDir err', error);
+      ToastAndroid.show(
+        `Error Code ${AL_ERROR_CODE.HANDLE_DIRECTORY_CODE} : ${error}`,
+        ToastAndroid.SHORT,
+      );
     }
   };
 
@@ -60,6 +65,10 @@ const InputForm = ({navigation, type, selected}) => {
       formik.setFieldValue(field, selectedFile);
     } catch (error) {
       console.log('selectedFile err', error);
+      ToastAndroid.show(
+        `Error Code ${AL_ERROR_CODE.HANDLE_FILE_CODE} : ${error}`,
+        ToastAndroid.SHORT,
+      );
     }
   };
 
@@ -74,7 +83,7 @@ const InputForm = ({navigation, type, selected}) => {
           type: isEdit ? 'EDIT_ANIME' : 'CREATE_ANIME',
           anime: {
             id,
-            episodes: getEpisode.length,
+            episodes: getEpisode?.length || 0,
             history: isEdit ? selected.history : [],
             ...values,
           },
@@ -88,6 +97,10 @@ const InputForm = ({navigation, type, selected}) => {
       navigation.dispatch(StackActions.pop(1));
     } catch (error) {
       console.log('handleSubmit err', error);
+      ToastAndroid.show(
+        `Error Code ${AL_ERROR_CODE.HANDLE_SUBMIT_CODE} : ${error}`,
+        ToastAndroid.SHORT,
+      );
     }
   };
 
@@ -95,7 +108,8 @@ const InputForm = ({navigation, type, selected}) => {
   return (
     <ScrollView
       contentContainerStyle={{padding: 20, paddingBottom: 100}}
-      showsVerticalScrollIndicator={false}>
+      showsVerticalScrollIndicator={false}
+      keyboardShouldPersistTaps="always">
       <FormControl>
         <FormLabel isRequired>Nama Anime</FormLabel>
         <TextInput

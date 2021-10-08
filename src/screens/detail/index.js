@@ -1,6 +1,6 @@
 import React, {useEffect, useState, useRef} from 'react';
 
-import {View, Dimensions, Image} from 'react-native';
+import {View, Dimensions, Image, ToastAndroid} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import SendIntentAndroid from 'react-native-send-intent';
 import BottomSheet from 'react-native-raw-bottom-sheet';
@@ -18,6 +18,7 @@ import colors from '@utils/themes/colors';
 import {getEpisodes} from '@utils/';
 import {useDefaultContext} from '@utils/contexts';
 import {isURL} from '@utils/';
+import {AL_ERROR_CODE} from '@utils/constants/errorCode';
 
 const Screen = Dimensions.get('screen');
 
@@ -46,6 +47,10 @@ const AnimeDetailpage = ({route, navigation}) => {
       setDataSource(eps.map((item, idx) => ({id: idx, file: item})));
     } catch (error) {
       console.log('handleEpisodesList err', error);
+      ToastAndroid.show(
+        `Error Code ${AL_ERROR_CODE.HANDLE_EPISODES_LIST_CODE} : ${error}`,
+        ToastAndroid.SHORT,
+      );
     }
   };
 
@@ -146,6 +151,7 @@ const AnimeDetailpage = ({route, navigation}) => {
             set: setSelectedEpisodeIndex,
           }}
           handleOpenFile={handleOpenFile}
+          handleInsertHistory={handleInsertHistory}
         />
         <CustomFab
           style={{top: -37.5, right: Screen.width * 0.1}}

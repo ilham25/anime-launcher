@@ -6,6 +6,7 @@ import sortArray from 'sort-array';
 
 import {VIDEO_EXTENSIONS} from './constants/fileExtensions';
 import {DETECT_URL_REGEX} from './constants/regex';
+import {AL_ERROR_CODE} from './constants/errorCode';
 
 const externalStorageDirectoryUri =
   'content://com.android.externalstorage.documents/tree/primary:';
@@ -43,6 +44,10 @@ export const getDirectory = async () => {
     }
   } catch (error) {
     console.log('getDirectory err', error);
+    ToastAndroid.show(
+      `Error Code ${AL_ERROR_CODE.GET_DIRECTORY_CODE} : ${error}`,
+      ToastAndroid.SHORT,
+    );
   }
 };
 
@@ -76,6 +81,10 @@ export const getFile = async () => {
     }
   } catch (error) {
     console.log('getFile err', error);
+    ToastAndroid.show(
+      `Error Code ${AL_ERROR_CODE.GET_FILE_CODE} : ${error}`,
+      ToastAndroid.SHORT,
+    );
   }
 };
 
@@ -91,9 +100,13 @@ export const getEpisodes = async dir => {
 
     const videosPath = filterVideos.map(vid => vid.path);
 
-    return sortArray(videosPath, {order: 'asc'});
+    return sortArray(videosPath, {order: 'asc'}) || [];
   } catch (error) {
     console.log('getEpisodes err', error);
+    ToastAndroid.show(
+      `Error Code ${AL_ERROR_CODE.GET_EPISODES_CODE} : ${error}`,
+      ToastAndroid.SHORT,
+    );
   }
 };
 
@@ -102,6 +115,10 @@ export const setStorage = async item => {
     await AsyncStorage.setItem('animeLauncherData', JSON.stringify(item));
   } catch (error) {
     console.error('setStorage', error);
+    ToastAndroid.show(
+      `Error Code ${AL_ERROR_CODE.SET_STORAGE_CODE} : ${error}`,
+      ToastAndroid.SHORT,
+    );
   }
 };
 
@@ -111,6 +128,10 @@ export const getStorage = async () => {
     return JSON.parse(storage);
   } catch (error) {
     console.error('getStorage', error);
+    ToastAndroid.show(
+      `Error Code ${AL_ERROR_CODE.GET_STORAGE_CODE} : ${error}`,
+      ToastAndroid.SHORT,
+    );
   }
 };
 

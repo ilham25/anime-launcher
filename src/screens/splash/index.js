@@ -1,6 +1,13 @@
 import React, {useEffect} from 'react';
 
-import {View, Image, StatusBar, Dimensions, Appearance} from 'react-native';
+import {
+  View,
+  Image,
+  StatusBar,
+  Dimensions,
+  Appearance,
+  ToastAndroid,
+} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 import images from '@assets/images';
@@ -8,6 +15,7 @@ import images from '@assets/images';
 import colors from '@utils/themes/colors';
 import {getStorage} from '@utils/';
 import {useDefaultContext} from '@utils/contexts';
+import {AL_ERROR_CODE} from '@utils/constants/errorCode';
 
 const Window = Dimensions.get('window');
 
@@ -75,6 +83,10 @@ const SplashScreen = () => {
       });
     } catch (error) {
       console.log('handleStorage err', error);
+      ToastAndroid.show(
+        `Error Code ${AL_ERROR_CODE.HANDLE_STORAGE_CODE} : ${error}`,
+        ToastAndroid.SHORT,
+      );
     }
   };
 

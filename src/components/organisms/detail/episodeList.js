@@ -14,6 +14,7 @@ const EpisodeItem = ({
   episodePreviewProps,
   selectedEpisodeIndexProps,
   handleOpenFile,
+  handleInsertHistory,
 }) => {
   const [{theme, episodePreview: isEpisodePreview}, _] = useDefaultContext();
 
@@ -42,6 +43,7 @@ const EpisodeItem = ({
           isEpisodePreview && setEpisodePreview(data?.file);
           if (selectedEpisodeIndex === data?.id) {
             handleOpenFile();
+            handleInsertHistory();
           } else {
             setSelectedEpisodeIndex(data?.id);
           }
@@ -95,6 +97,7 @@ const EpisodeList = ({
   episodePreviewProps,
   selectedEpisodeIndexProps,
   handleOpenFile,
+  handleInsertHistory,
 }) => {
   const flatListRef = useRef();
 
@@ -105,16 +108,19 @@ const EpisodeList = ({
       episodePreviewProps={episodePreviewProps}
       selectedEpisodeIndexProps={selectedEpisodeIndexProps}
       handleOpenFile={handleOpenFile}
+      handleInsertHistory={handleInsertHistory}
     />
   );
 
   useEffect(() => {
-    setTimeout(() => {
-      flatListRef.current?.scrollToIndex({
-        animated: true,
-        index: selectedEpisodeIndexProps.get,
-      });
-    }, 500);
+    if (dataSource?.length > 0) {
+      setTimeout(() => {
+        flatListRef.current?.scrollToIndex({
+          animated: true,
+          index: selectedEpisodeIndexProps.get,
+        });
+      }, 500);
+    }
   }, [dataSource]);
 
   return (
@@ -141,6 +147,7 @@ EpisodeList.propTypes = {
     set: PropTypes.func.isRequired,
   }).isRequired,
   handleOpenFile: PropTypes.func.isRequired,
+  handleInsertHistory: PropTypes.func.isRequired,
 };
 
 EpisodeItem.propTypes = {
@@ -155,6 +162,7 @@ EpisodeItem.propTypes = {
     set: PropTypes.func.isRequired,
   }).isRequired,
   handleOpenFile: PropTypes.func.isRequired,
+  handleInsertHistory: PropTypes.func.isRequired,
 };
 
 export default EpisodeList;

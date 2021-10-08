@@ -10,6 +10,9 @@ import FormControl from '@components/atoms/formControl';
 import FormLabel from '@components/atoms/formLabel';
 import ImagePreview from '@components/atoms/imagePreview';
 import OpacitySlider from '@components/molecules/settings/opacitySlider';
+import ColorSchemeToggle from '@components/molecules/settings/colorSchemeToggle';
+import SettingsContainer from '@components/atoms/settingsContainer';
+import EpisodePreviewToggle from '@components/molecules/settings/episodePreviewToggle';
 
 import images from '@assets/images';
 
@@ -17,9 +20,7 @@ import {getFile} from '@utils/';
 import {useDefaultContext} from '@utils/contexts';
 import colors from '@utils/themes/colors';
 import fonts from '@utils/fonts';
-import ColorSchemeToggle from '@components/molecules/settings/colorSchemeToggle';
-import SettingsContainer from '@components/atoms/settingsContainer';
-import EpisodePreviewToggle from '@components/molecules/settings/episodePreviewToggle';
+import {AL_ERROR_CODE} from '@utils/constants/errorCode';
 
 const SettingsForm = ({navigation}) => {
   const [state, dispatch] = useDefaultContext();
@@ -35,6 +36,10 @@ const SettingsForm = ({navigation}) => {
       setSelectedWallpaper(selectedFile);
     } catch (error) {
       console.log('selectedFile err', error);
+      ToastAndroid.show(
+        `Error Code ${AL_ERROR_CODE.HANDLE_FILE_CODE} : ${error}`,
+        ToastAndroid.SHORT,
+      );
     }
   };
 
