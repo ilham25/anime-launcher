@@ -83,7 +83,7 @@ const InputForm = ({navigation, type, selected}) => {
           type: isEdit ? 'EDIT_ANIME' : 'CREATE_ANIME',
           anime: {
             id,
-            episodes: getEpisode.length || 0,
+            episodes: getEpisode?.length || 0,
             history: isEdit ? selected.history : [],
             ...values,
           },

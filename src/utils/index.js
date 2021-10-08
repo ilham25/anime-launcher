@@ -100,7 +100,7 @@ export const getEpisodes = async dir => {
 
     const videosPath = filterVideos.map(vid => vid.path);
 
-    return sortArray(videosPath, {order: 'asc'});
+    return sortArray(videosPath, {order: 'asc'}) || [];
   } catch (error) {
     console.log('getEpisodes err', error);
     ToastAndroid.show(
