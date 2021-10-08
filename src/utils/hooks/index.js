@@ -1,6 +1,9 @@
 import {useState} from 'react';
 
+import {ToastAndroid} from 'react-native';
+
 import {API} from '@utils/axios/api';
+import {AL_ERROR_CODE} from '@utils/constants/errorCode';
 
 export const useLazyQuery = (
   options = {
@@ -32,6 +35,11 @@ export const useLazyQuery = (
       }
     } catch (error) {
       console.log('API ERR', error);
+
+      ToastAndroid.show(
+        `Error Code ${AL_ERROR_CODE.EXECUTOR_CODE} : ${error}`,
+        ToastAndroid.SHORT,
+      );
 
       setError(true);
       setLoading(false);

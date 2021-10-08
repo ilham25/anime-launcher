@@ -109,12 +109,14 @@ const EpisodeList = ({
   );
 
   useEffect(() => {
-    setTimeout(() => {
-      flatListRef.current?.scrollToIndex({
-        animated: true,
-        index: selectedEpisodeIndexProps.get,
-      });
-    }, 500);
+    if (dataSource?.length > 0) {
+      setTimeout(() => {
+        flatListRef.current?.scrollToIndex({
+          animated: true,
+          index: selectedEpisodeIndexProps.get,
+        });
+      }, 500);
+    }
   }, [dataSource]);
 
   return (
