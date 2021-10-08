@@ -108,7 +108,8 @@ const InputForm = ({navigation, type, selected}) => {
   return (
     <ScrollView
       contentContainerStyle={{padding: 20, paddingBottom: 100}}
-      showsVerticalScrollIndicator={false}>
+      showsVerticalScrollIndicator={false}
+      keyboardShouldPersistTaps="always">
       <FormControl>
         <FormLabel isRequired>Nama Anime</FormLabel>
         <TextInput
