@@ -5,16 +5,12 @@
 - Features
 
   - Tambah/daftarkan anime
-    ![CREATE](/Other/create.png)
 
   - Ubah dan hapus anime dari daftar
-    ![DELEDIT](/Other/del-edit.png)
 
   - Daftar episode dan history (episode yang sudah ditonton)
-    ![EPSHISTORY](/Other/eps-history.png)
 
   - Ganti wallpaper aplikasi
-    ![SETWALLPAPER](/Other/set-wp.png)
 
 ## Instalasi
 
